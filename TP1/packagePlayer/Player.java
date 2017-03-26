@@ -2,23 +2,33 @@ public class Player implements Account{
 	
 	private float account;
 
+	private boolean active;
+
+	public Player(){
+		this.active = true;
+	}
+
 	public void deposit(float amount){
-		account += amount;
+		this.account += amount;
 	}
 
 	public float withdraw(float amount){
 		//TODO - Check if withdrawing more than total
 		// (Raise Exception ?)
 		if (amount > account){
-			0;
+			this.active = false;
 		}
 
-		account -= amount;
+		this.account -= amount;
 
 		return amount;
 	}
 
 	public float getStatement(){
-		return account;
+		return this.account;
+	}
+
+	public boolean isActive(){
+		return this.active;
 	}
 }

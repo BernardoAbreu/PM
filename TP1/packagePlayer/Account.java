@@ -4,5 +4,7 @@ public interface Account {
 
 	public float withdraw(float amount);
 
+	//TODO
+	//Is it needed
 	public float getStatement();
 }
