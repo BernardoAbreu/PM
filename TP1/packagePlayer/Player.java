@@ -1,11 +1,13 @@
+package packagePlayer;
+
 public class Player implements Account{
 	
 	private float account;
 
-	private boolean active;
+	private boolean playing;
 
 	public Player(){
-		this.active = true;
+		this.playing = true;
 	}
 
 	public void deposit(float amount){
@@ -15,11 +17,12 @@ public class Player implements Account{
 	public float withdraw(float amount){
 		//TODO - Check if withdrawing more than total
 		// (Raise Exception ?)
-		if (amount > account){
-			this.active = false;
-		}
-
 		this.account -= amount;
+
+		if (account < 0){
+			this.active = false;
+			return 0.0;
+		}
 
 		return amount;
 	}
@@ -28,7 +31,7 @@ public class Player implements Account{
 		return this.account;
 	}
 
-	public boolean isActive(){
-		return this.active;
+	public boolean isPlaying(){
+		return this.playing;
 	}
 }

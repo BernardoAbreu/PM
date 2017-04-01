@@ -5,6 +5,6 @@ public interface Account {
 	public float withdraw(float amount);
 
 	//TODO
-	//Is it needed
+	//Is it needed?
 	public float getStatement();
 }
