@@ -1,6 +1,10 @@
+package packagePosition;
+
+import packagePlayer.Player;
+
 public class RealState extends Position{
 
-	private int owner;
+	private Player owner;
 
 	private int id;
 
@@ -9,8 +13,8 @@ public class RealState extends Position{
 	private int rent;
 
 	public RealState(int value, int rent){
-		this.type = 3;
-		this.owner = 0;
+		super(3);
+		this.owner = null;
 		this.value = value;
 		this.rent = rent;
 	}
@@ -26,4 +30,25 @@ public class RealState extends Position{
 	public int getRent(){
 		return this.rent;
 	}
+
+	public void setOwner(Player p){
+		this.owner = p;
+	}
+
+	public Player getOwner(){
+		return this.owner;
+	}
+
+	public void play(Player p){
+		if (this.getOwner() == null){
+			if(p.getStatement() >= this.getValue()){
+				p.withdraw(this.getValue());
+				this.setOwner(p);
+			}
+		}
+		else if (p.getId() != this.getOwner().getId()){
+			this.getOwner().deposit(p.withdraw(this.getRent()));
+		}
+	}
+
 }

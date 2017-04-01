@@ -1,3 +1,7 @@
+package packagePosition;
+
+import packagePlayer.Player;
+
 public abstract class Position{
 
 	private int type;
@@ -6,4 +10,9 @@ public abstract class Position{
 		return type;
 	}
 
+	public Position(int type){
+		this.type = type;
+	}
+
+	public void play(Player);
 }
