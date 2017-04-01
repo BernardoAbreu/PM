@@ -1,6 +1,4 @@
-package packagePosition;
-
-import packagePlayer.Player;
+package com.data;
 
 public class RealState extends Position{
 

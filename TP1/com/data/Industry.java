@@ -1,4 +1,4 @@
-package packagePosition;
+package com.data;
 
 public final class Industry extends RealState{
 

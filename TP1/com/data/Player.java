@@ -1,6 +1,6 @@
-package com.packagePlayer;
+package com.data;
 
-public class Player implements com.packagePlayer.Account {
+public class Player implements Account {
 	
 	private double account;
 
@@ -13,10 +13,12 @@ public class Player implements com.packagePlayer.Account {
 		this.playing = true;
 	}
 
+	@Override
 	public void deposit(double amount){
 		this.account += amount;
 	}
 
+	@Override
 	public double withdraw(double amount){
 		//TODO - Check if withdrawing more than total
 		// (Raise Exception ?)
@@ -30,6 +32,7 @@ public class Player implements com.packagePlayer.Account {
 		return amount;
 	}
 
+	@Override
 	public double getStatement(){
 		return this.account;
 	}

@@ -1,10 +1,5 @@
-package com.company;
+package com.data;
 
-import com.packagePosition.*;
-
-import java.util.NoSuchElementException;
-import java.util.Scanner;
-import java.util.Collection;
 import java.util.ArrayList;
 
 public class Board{
@@ -14,8 +9,6 @@ public class Board{
 	private ArrayList<Position> positions;
 
 	public Board(int npositions){
-		System.out.println("npositions =  " + String .valueOf(npositions));
-
 		this.boardSize = npositions;
 		this.positions = new ArrayList<Position>(npositions);
 

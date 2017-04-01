@@ -1,4 +1,4 @@
-package com.packagePosition;
+package com.data;
 
 public final class Residence extends RealState{
 

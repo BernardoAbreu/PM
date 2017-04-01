@@ -1,6 +1,4 @@
-package com.packagePosition;
-
-import com.packagePlayer.Player;
+package com.data;
 
 public class SkipTurn extends Position{
 

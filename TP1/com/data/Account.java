@@ -1,4 +1,4 @@
-package com.packagePlayer;
+package com.data;
 
 public interface Account {
 
