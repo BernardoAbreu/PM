@@ -1,8 +1,9 @@
+package packagePosition;
+
 public final class Industry extends RealState{
 
-	public Industry(int id, int value, int rent){
-		super(value, rent);
-		this.id = 3;
+	public Industry(int value, int rent){
+		super(3, value, rent);
 	}
 
 }

@@ -1,8 +1,9 @@
+package packagePosition;
+
 public final class Commerce extends RealState{
 
-	public Commerce(int id, int value, int rent){
-		super(value, rent);
-		this.id = 2;
+	public Commerce(int value, int rent){
+		super(2, value, rent);
 	}
 
 }

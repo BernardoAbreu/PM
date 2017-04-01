@@ -1,8 +1,9 @@
+package packagePosition;
+
 public final class Hotel extends RealState{
 
-	public Hotel(int id, int value, int rent){
-		super(value, rent);
-		this.id = 4;
+	public Hotel(int value, int rent){
+		super(4, value, rent);
 	}
 
 }

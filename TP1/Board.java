@@ -1,3 +1,5 @@
+import packagePosition.Position;
+
 import java.util.ArrayList;
 
 public class Board{
@@ -13,10 +15,10 @@ public class Board{
 
 
 	public void addPosition(int boardPosition, Position position){
-		this.positions[boardPosition] = position;
+		this.positions.add(boardPosition, position);
 	}
 
 	public Position getPosition(int boardPosition){
-		return this.positions[boardPosition];
+		return this.positions.get(boardPosition);
 	}
 }

@@ -1,10 +1,12 @@
+package packagePlayer;
+
 public interface Account {
 
-	public void deposit(float amount);
+	public void deposit(double amount);
 
-	public float withdraw(float amount);
+	public double withdraw(double amount);
 
 	//TODO
 	//Is it needed?
-	public float getStatement();
+	public double getStatement();
 }

@@ -14,5 +14,5 @@ public abstract class Position{
 		this.type = type;
 	}
 
-	public void play(Player);
+	public abstract void play(Player p);
 }

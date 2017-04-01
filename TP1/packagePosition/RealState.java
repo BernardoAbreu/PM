@@ -12,8 +12,9 @@ public class RealState extends Position{
 
 	private int rent;
 
-	public RealState(int value, int rent){
+	public RealState(int id, int value, int rent){
 		super(3);
+		this.id = id;
 		this.owner = null;
 		this.value = value;
 		this.rent = rent;

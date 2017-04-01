@@ -1,5 +1,5 @@
 package packagePosition;
-package packagePosition;
+
 import packagePlayer.Player;
 
 public class Start extends Position{
