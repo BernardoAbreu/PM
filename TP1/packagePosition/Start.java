@@ -9,6 +9,6 @@ public class Start extends Position{
 	}
 
 	public void play(Player p){
-		p.deposit(500.0);
+		p.deposit(500);
 	}
 }

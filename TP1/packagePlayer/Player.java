@@ -2,7 +2,7 @@ package packagePlayer;
 
 public class Player implements Account{
 	
-	private double account;
+	private int account;
 
 	private boolean playing;
 
@@ -13,11 +13,11 @@ public class Player implements Account{
 		this.playing = true;
 	}
 
-	public void deposit(double amount){
+	public void deposit(int amount){
 		this.account += amount;
 	}
 
-	public double withdraw(double amount){
+	public int withdraw(int amount){
 		//TODO - Check if withdrawing more than total
 		// (Raise Exception ?)
 		this.account -= amount;
@@ -30,7 +30,7 @@ public class Player implements Account{
 		return amount;
 	}
 
-	public double getStatement(){
+	public int getStatement(){
 		return this.account;
 	}
 

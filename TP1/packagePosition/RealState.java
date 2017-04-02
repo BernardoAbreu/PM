@@ -29,7 +29,7 @@ public class RealState extends Position{
 	}
 
 	public int getRent(){
-		return this.rent;
+		return this.rent*this.value/100;
 	}
 
 	public void setOwner(Player p){

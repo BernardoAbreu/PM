@@ -2,11 +2,11 @@ package packagePlayer;
 
 public interface Account {
 
-	public void deposit(double amount);
+	public void deposit(int amount);
 
-	public double withdraw(double amount);
+	public int withdraw(int amount);
 
 	//TODO
 	//Is it needed?
-	public double getStatement();
+	public int getStatement();
 }
