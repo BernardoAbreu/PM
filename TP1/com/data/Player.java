@@ -1,40 +1,53 @@
 package com.data;
 
+import com.utils.Stats;
+
 public class Player implements Account {
 	
-	private double account;
+	private double statement;
 
 	private boolean playing;
 
+	private int position;
+
 	private int id;
+
+	private Stats s;
 
 	public Player(int id){
 		this.id = id;
 		this.playing = true;
+		this.position = 0;
+		this.s = new Stats();
+	}
+
+	public int getPosition() {
+		return position;
+	}
+
+	public void walk(int dice, int boardSize) {
+		this.position += dice;
+		if(this.position > boardSize) this.position = this.position % boardSize;
 	}
 
 	@Override
 	public void deposit(double amount){
-		this.account += amount;
+		this.statement += amount;
 	}
 
 	@Override
 	public double withdraw(double amount){
-		//TODO - Check if withdrawing more than total
-		// (Raise Exception ?)
-		this.account -= amount;
-
-		if (account < 0){
+		this.statement -= amount;
+		if (statement < 0){
 			this.playing = false;
 			return 0;
 		}
-
 		return amount;
 	}
 
 	@Override
 	public double getStatement(){
-		return this.account;
+		return this.statement;
 	}
 
 	public int getId(){
@@ -44,4 +57,5 @@ public class Player implements Account {
 	public boolean isPlaying(){
 		return this.playing;
 	}
+
 }
