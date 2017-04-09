@@ -4,7 +4,7 @@ public class Stats {
 
     private int nCompletedRounds;
 
-    private float finalStatement;
+    private double finalStatement;
 
     private float rentReceived;
 
@@ -27,15 +27,15 @@ public class Stats {
         return nCompletedRounds;
     }
 
-    public void setnCompletedRounds(int nCompletedRounds) {
-        this.nCompletedRounds = nCompletedRounds;
+    public void incnCompletedRounds() {
+        this.nCompletedRounds++;
     }
 
-    public float getFinalStatement() {
+    public double getFinalStatement() {
         return finalStatement;
     }
 
-    public void setFinalStatement(float finalStatement) {
+    public void setFinalStatement(double finalStatement) {
         this.finalStatement = finalStatement;
     }
 
@@ -43,31 +43,31 @@ public class Stats {
         return rentReceived;
     }
 
-    public void setRentReceived(float rentReceived) {
-        this.rentReceived = rentReceived;
+    public void incRentReceived(float rentReceived) {
+        this.rentReceived += rentReceived;
     }
 
     public float getRentPaid() {
         return rentPaid;
     }
 
-    public void setRentPaid(float rentPaid) {
-        this.rentPaid = rentPaid;
+    public void incRentPaid(float rentPaid) {
+        this.rentPaid += rentPaid;
     }
 
     public float getBoughtValue() {
         return boughtValue;
     }
 
-    public void setBoughtValue(float boughtValue) {
-        this.boughtValue = boughtValue;
+    public void incBoughtValue(float boughtValue) {
+        this.boughtValue += boughtValue;
     }
 
     public int getnSkip() {
         return nSkip;
     }
 
-    public void setnSkip(int nSkip) {
-        this.nSkip = nSkip;
+    public void incnSkip() {
+        this.nSkip++;
     }
 }

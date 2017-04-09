@@ -84,19 +84,19 @@ public class Board{
 				case 3:
 					switch (realEstateType){
 						case 1:
-							board.addPosition(boardPosition, new RealEstate(3,realEstateValue, rentRate/100, RealEstate.RESIDENCE));
+							board.addPosition(boardPosition, new RealEstate(boardPosition,realEstateValue, rentRate/100, RealEstate.RESIDENCE));
 							break;
 						case 2:
-							board.addPosition(boardPosition, new RealEstate(3,realEstateValue, rentRate/100, RealEstate.COMMERCE));
+							board.addPosition(boardPosition, new RealEstate(boardPosition,realEstateValue, rentRate/100, RealEstate.COMMERCE));
 							break;
 						case 3:
-							board.addPosition(boardPosition, new RealEstate(3,realEstateValue, rentRate/100, RealEstate.INDUSTRY));
+							board.addPosition(boardPosition, new RealEstate(boardPosition,realEstateValue, rentRate/100, RealEstate.INDUSTRY));
 							break;
 						case 4:
-							board.addPosition(boardPosition, new RealEstate(3,realEstateValue, rentRate/100, RealEstate.HOTEL));
+							board.addPosition(boardPosition, new RealEstate(boardPosition,realEstateValue, rentRate/100, RealEstate.HOTEL));
 							break;
 						case 5:
-							board.addPosition(boardPosition, new RealEstate(3,realEstateValue, rentRate/100, RealEstate.HOSPITAL));
+							board.addPosition(boardPosition, new RealEstate(boardPosition,realEstateValue, rentRate/100, RealEstate.HOSPITAL));
 							break;
 					}
 					break;
