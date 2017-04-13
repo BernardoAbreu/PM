@@ -1,8 +1,14 @@
-package packagePosition;
+package com.data;
 
-import packagePlayer.Player;
+public class RealEstate extends Position{
 
-public class RealState extends Position{
+	static final int RESIDENCE = 1;
+	static final int COMMERCE = 2;
+	static final int INDUSTRY = 3;
+	static final int HOTEL = 4;
+	static final int HOSPITAL = 5;
+
+	private int realEstateType;
 
 	private Player owner;
 
@@ -10,14 +16,15 @@ public class RealState extends Position{
 
 	private int value;
 
-	private int rent;
+	private double rent;
 
-	public RealState(int id, int value, int rent){
+	public RealEstate(int id, int value, double rent, int realEstateType){
 		super(3);
 		this.id = id;
 		this.owner = null;
 		this.value = value;
 		this.rent = rent;
+		this.realEstateType = realEstateType;
 	}
 
 	public int getId(){
@@ -28,8 +35,8 @@ public class RealState extends Position{
 		return this.value;
 	}
 
-	public int getRent(){
-		return this.rent*this.value/100;
+	public double getRent(){
+		return this.rent;
 	}
 
 	public void setOwner(Player p){
@@ -50,6 +57,14 @@ public class RealState extends Position{
 		else if (p.getId() != this.getOwner().getId()){
 			this.getOwner().deposit(p.withdraw(this.getRent()));
 		}
+	}
+
+	public int getRealEstateType() {
+		return realEstateType;
+	}
+
+	public void setRealEstateType(int realEstateType) {
+		this.realEstateType = realEstateType;
 	}
 
 }

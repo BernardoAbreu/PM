@@ -1,6 +1,4 @@
-package packagePosition;
-
-import packagePlayer.Player;
+package com.data;
 
 public class Start extends Position{
 
@@ -9,6 +7,6 @@ public class Start extends Position{
 	}
 
 	public void play(Player p){
-		p.deposit(500);
+		p.deposit(500.0);
 	}
 }

@@ -1,10 +1,9 @@
 all:
-	javac */*.java
-	javac *.java
+	javac com/*/*.java
 
 clean:
-	rm -rf */*.class
-	rm -rf *.class
+	rm -rf com/*/*.class
+	rm -rf com/*.class
 
 run:
-	java Monopoly
+	java com/game/Main tabuleiro.txt jogadas.txt
