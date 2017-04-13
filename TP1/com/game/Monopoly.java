@@ -52,8 +52,8 @@ public class Monopoly {
         }
 
         printStats(nplayers, stats, nValidPlays);
-        System.out.println("TOTAL Eliminated Players:  " + String.valueOf(eliminatedPlayers));
-        System.out.println("Number of rounds: " + String.valueOf(nValidPlays / nplayers));
+//        System.out.println("TOTAL Eliminated Players:  " + String.valueOf(eliminatedPlayers));
+//        System.out.println("Number of rounds: " + String.valueOf(nValidPlays / nplayers));
     }
 
     private void printStats(int nplayers, Stats[] stats, int nValidPlays) {

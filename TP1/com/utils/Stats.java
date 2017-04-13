@@ -8,9 +8,9 @@ public class Stats {
 
     private float rentReceived;
 
-    private float rentPaid;
+    private double rentPaid;
 
-    private float boughtValue;
+    private double boughtValue;
 
     private int nSkip;
 
@@ -39,27 +39,27 @@ public class Stats {
         this.finalStatement = finalStatement;
     }
 
-    public float getRentReceived() {
+    public double getRentReceived() {
         return rentReceived;
     }
 
-    public void incRentReceived(float rentReceived) {
+    public void incRentReceived(double rentReceived) {
         this.rentReceived += rentReceived;
     }
 
-    public float getRentPaid() {
+    public double getRentPaid() {
         return rentPaid;
     }
 
-    public void incRentPaid(float rentPaid) {
+    public void incRentPaid(double rentPaid) {
         this.rentPaid += rentPaid;
     }
 
-    public float getBoughtValue() {
+    public double getBoughtValue() {
         return boughtValue;
     }
 
-    public void incBoughtValue(float boughtValue) {
+    public void incBoughtValue(double boughtValue) {
         this.boughtValue += boughtValue;
     }
 

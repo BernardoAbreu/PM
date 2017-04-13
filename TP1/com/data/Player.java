@@ -28,12 +28,12 @@ public class Player implements Account {
 		return position;
 	}
 
-	public boolean walk(int dice, int boardSize) {
+	public int walk(int dice, int boardSize) {
 		int oldpos = this.position;
 		int newpos = oldpos + dice;
 		this.position = newpos % boardSize;
-		if(newpos >= boardSize) return true;
-		else return false;
+		if(newpos >= boardSize) return newpos/boardSize;
+		else return 0;
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public class Player implements Account {
 			this.withdraw(property.getValue());
 			property.setOwner(this);
 			this.properties.add(property);
-			System.out.println("Player: " + String.valueOf(this.id) + "  Owns property: " + property.getId());
+//			System.out.println("Player: " + String.valueOf(this.id+1) + "  Owns property: " + property.getId());
 			return true;
 		}
 
@@ -81,7 +81,7 @@ public class Player implements Account {
 	}
 
 	public void leaveGame() {
-		System.out.println("Player: " + String.valueOf(this.id) + "  has left the game.");
+//		System.out.println("Player: " + String.valueOf(this.id+1) + "  has left the game.");
 		this.withdraw(this.getStatement());
 		this.setPlaying(false);
 		for(RealEstate p : this.properties){
@@ -95,7 +95,7 @@ public class Player implements Account {
 			//pay rent
 			this.withdraw(property.getValue() * property.getRent());
 			p.deposit(property.getValue() * property.getRent());
-			System.out.println("Player: " + String.valueOf(this.getId()) + "  pays rent to:  " + String.valueOf(p.getId()));
+//			System.out.println("Player: " + String.valueOf(this.getId()+1) + "  pays rent to:  " + String.valueOf(p.getId()+1));
 			return true;
 		}
 

@@ -44,7 +44,7 @@ public class Board{
 		int positionType;
 		int realEstateType;
 		int realEstateValue;
-		int rentRate;
+		double rentRate;
 		int numberOfPositions = Integer.parseInt(fileHandler.getBoardLine());
 
 		board = new Board(numberOfPositions);
@@ -71,7 +71,7 @@ public class Board{
 			if(splitline.length > 3){
 				realEstateType = Integer.parseInt(splitline[3]);
 				realEstateValue = Integer.parseInt(splitline[4]);
-				rentRate = Integer.parseInt(splitline[5]);
+				rentRate = Double.parseDouble(splitline[5]);
 			}
 
 			switch (positionType){

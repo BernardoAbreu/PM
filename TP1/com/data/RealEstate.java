@@ -16,9 +16,9 @@ public class RealEstate extends Position{
 
 	private int value;
 
-	private int rent;
+	private double rent;
 
-	public RealEstate(int id, int value, int rent, int realEstateType){
+	public RealEstate(int id, int value, double rent, int realEstateType){
 		super(3);
 		this.id = id;
 		this.owner = null;
@@ -35,7 +35,7 @@ public class RealEstate extends Position{
 		return this.value;
 	}
 
-	public int getRent(){
+	public double getRent(){
 		return this.rent;
 	}
 
