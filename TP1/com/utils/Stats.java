@@ -70,4 +70,57 @@ public class Stats {
     public void incnSkip() {
         this.nSkip++;
     }
+
+    public static String[] summarizeStats(Stats[] stats, int nGameRounds){
+        String[] summary = new String[7];
+
+        //First line: number of valid plays
+        summary[0] = "1: " + String.valueOf(nGameRounds) + "\n";
+
+        //Second line: how many rounds did each player complete?
+        summary[1] = "2: ";
+        for (int i = 0; i < stats.length; i++) {
+            summary[1] += String.valueOf(i+1) + "-" + String.valueOf(stats[i].getnCompletedRounds()) + "; ";
+        }
+        summary[1] += "\n";
+
+        //Third line: players final statements
+        summary[2] = "3: ";
+        for (int k = 0; k < stats.length; k++) {
+            summary[2] += String.valueOf(k+1) + "-" + String.valueOf(stats[k].getFinalStatement()) + "; ";
+        }
+        summary[2] += "\n";
+
+        //Fourth line: players rent received
+        summary[3] = "4: ";
+        for (int l = 0; l < stats.length; l++) {
+            summary[3] += String.valueOf(l+1) + "-" + String.valueOf(stats[l].getRentReceived()) + "; ";
+        }
+        summary[3] += "\n";
+
+        //Fifth line: players rent paid
+        summary[4] = "5: ";
+        for (int m = 0; m < stats.length; m++) {
+            summary[4] += String.valueOf(m+1) + "-" + String.valueOf(stats[m].getRentPaid()) + "; ";
+        }
+        summary[4] += "\n";
+
+        //Sixth line: players money spent on buying places
+        summary[5] = "6: ";
+        for (int n = 0; n < stats.length; n++) {
+            summary[5] += String.valueOf(n+1) + "-" + String.valueOf(stats[n].getBoughtValue()) + "; ";
+        }
+        summary[5] += "\n";
+
+        //Seventh line: players amount of skipped turns
+        summary[6] = "7: ";
+        for (int o = 0; o < stats.length; o++) {
+            summary[6] += String.valueOf(o+1) + "-" + String.valueOf(stats[o].getnSkip()) + "; ";
+        }
+        summary[6] += "\n";
+
+        //Finished gathering stats
+        return summary;
+    }
+
 }

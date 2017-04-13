@@ -51,43 +51,21 @@ public class Monopoly {
             if(eliminatedPlayers == nplayers) break;
         }
 
-        printStats(nplayers, stats, nValidPlays);
-//        System.out.println("TOTAL Eliminated Players:  " + String.valueOf(eliminatedPlayers));
-//        System.out.println("Number of rounds: " + String.valueOf(nValidPlays / nplayers));
+        printStats(stats, handler, nValidPlays, nplayers);
     }
 
-    private void printStats(int nplayers, Stats[] stats, int nValidPlays) {
-        for (int j = 0; j < this.players.length; j++) {
-            stats[j].setFinalStatement(this.players[j].getStatement());
-        }
-        System.out.println("========================== STATS!! =====================");
+    private void printStats( Stats[] stats, FileUtils handler, int nValidPlays, int nplayers) {
+        String line = "";
 
-        System.out.println("1: "+String.valueOf(nValidPlays/nplayers));
-        System.out.print("2: ");
-        for (int i = 0; i < stats.length; i++) {
-            System.out.print(String.valueOf(i+1) + "-" + String.valueOf(stats[i].getnCompletedRounds()) + "; ");
+        for (int i = 0; i < this.players.length; i++) {
+            stats[i].setFinalStatement(this.players[i].getStatement());
         }
-        System.out.print("\n3: ");
-        for (int k = 0; k < stats.length; k++) {
-            System.out.print(String.valueOf(k+1) + "-" + String.valueOf(stats[k].getFinalStatement()) + "; ");
+
+        String[] summary = Stats.summarizeStats(stats, nValidPlays/nplayers);
+        for(int j = 0; j < summary.length; j++){
+            handler.writeLine(summary[j]);
         }
-        System.out.print("\n4: ");
-        for (int l = 0; l < stats.length; l++) {
-            System.out.print(String.valueOf(l+1) + "-" + String.valueOf(stats[l].getRentReceived()) + "; ");
-        }
-        System.out.print("\n5: ");
-        for (int m = 0; m < stats.length; m++) {
-            System.out.print(String.valueOf(m+1) + "-" + String.valueOf(stats[m].getRentPaid()) + "; ");
-        }
-        System.out.print("\n6: ");
-        for (int n = 0; n < stats.length; n++) {
-            System.out.print(String.valueOf(n+1) + "-" + String.valueOf(stats[n].getBoughtValue()) + "; ");
-        }
-        System.out.print("\n7: ");
-        for (int o = 0; o < stats.length; o++) {
-            System.out.print(String.valueOf(o+1) + "-" + String.valueOf(stats[o].getnSkip()) + "; ");
-        }
-        System.out.print("\n");
+
     }
 
     private Play readPlay(FileUtils handler) {

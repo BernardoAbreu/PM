@@ -9,6 +9,7 @@ public class Main {
 
 		if(args.length != 2){
 			System.out.println("ERROR: unsufficient number of arguments.");
+			System.exit(-1);
 		}
 
 		FileUtils handler = new FileUtils(args[0], args[1]);
@@ -16,6 +17,7 @@ public class Main {
 
 		monopoly.runGame(handler);
 
+		handler.destroy();
 
 	}
 }

@@ -3,15 +3,14 @@ package com.utils;
 /**
  * Created by math on 4/5/17.
  */
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class FileUtils {
     private BufferedReader boardFile;
 
     private BufferedReader playsFile;
+
+    private BufferedWriter statsFile;
 
     public FileUtils(String boardFile, String playsFile){
         String curDir = System.getProperty("user.dir");
@@ -20,9 +19,12 @@ public class FileUtils {
         try {
             this.boardFile = new BufferedReader(new FileReader(curDir+"/"+boardFile));
             this.playsFile = new BufferedReader(new FileReader(curDir+"/"+playsFile));
+            this.statsFile = new BufferedWriter(new FileWriter(curDir+"/saida.txt"));
         }catch (FileNotFoundException e){
             System.out.println("File not found!");
             e.printStackTrace();
+        }catch (IOException e){
+            System.out.println("Error opening out file.");
         }
 
     }
@@ -49,4 +51,25 @@ public class FileUtils {
         return line;
     }
 
+    public boolean writeLine(String line){
+        try {
+            this.statsFile.write(line);
+        }catch (Exception e){
+            System.out.println("ERROR: writing to file.");
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public void destroy(){
+        try {
+            if(this.boardFile != null) this.boardFile.close();
+            if(this.playsFile != null) this.playsFile.close();
+            if(this.statsFile != null) this.statsFile.close();
+        }catch (IOException e){
+            System.out.println("ERROR: closing files.");
+            e.printStackTrace();
+        }
+    }
 }
