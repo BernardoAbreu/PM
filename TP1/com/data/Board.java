@@ -77,6 +77,7 @@ public class Board{
 			switch (positionType){
 				case 1:
 					board.addPosition(boardPosition, new Start());
+					board.setStartPosition(boardPosition);
 					break;
 				case 2:
 					board.addPosition(boardPosition, new SkipTurn());

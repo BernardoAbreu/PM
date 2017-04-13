@@ -51,15 +51,13 @@ public class FileUtils {
         return line;
     }
 
-    public boolean writeLine(String line){
+    public void writeLine(String line){
         try {
             this.statsFile.write(line);
         }catch (Exception e){
             System.out.println("ERROR: writing to file.");
             e.printStackTrace();
-            return false;
         }
-        return true;
     }
 
     public void destroy(){
