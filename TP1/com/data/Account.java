@@ -6,7 +6,5 @@ public interface Account {
 
 	public double withdraw(double amount);
 
-	//TODO
-	//Is it needed?
 	public double getStatement();
 }

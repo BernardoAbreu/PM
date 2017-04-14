@@ -1,5 +1,7 @@
 package com.data;
 
+import com.utils.Stats;
+
 public class RealEstate extends Position{
 
 	static final int RESIDENCE = 1;
@@ -47,24 +49,25 @@ public class RealEstate extends Position{
 		return this.owner;
 	}
 
-	public void play(Player p){
-		if (this.getOwner() == null){
-			if(p.getStatement() >= this.getValue()){
-				p.withdraw(this.getValue());
-				this.setOwner(p);
+	public boolean play(Player player, Stats[] stats){
+		if(this.getOwner() == null) {
+			//BUY FROM BANK
+			if(player.acquireProperty(this)) {//Nothing happens if player can't afford the property, they just stay there
+				stats[player.getId()].incBoughtValue(this.getValue());
 			}
 		}
-		else if (p.getId() != this.getOwner().getId()){
-			this.getOwner().deposit(p.withdraw(this.getRent()));
+		else {
+			//PAY RENT
+			if(this.getOwner().getId() != player.getId()) {
+				Player owner = this.getOwner();
+				if(!player.payRent(owner,this)) { player.leaveGame(); return false;}
+				else{
+					stats[player.getId()].incRentPaid(this.getValue()*this.getRent());
+					stats[owner.getId()].incRentReceived(this.getValue()*this.getRent());
+				}
+			}
 		}
-	}
-
-	public int getRealEstateType() {
-		return realEstateType;
-	}
-
-	public void setRealEstateType(int realEstateType) {
-		this.realEstateType = realEstateType;
+		return true;
 	}
 
 }

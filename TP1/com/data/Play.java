@@ -29,6 +29,8 @@ public class Play {
 
         Position curPosition = board.getPosition(curPlayer.getPosition());
 
+//        if(curPosition.play(curPlayer, stats)) return 1;
+//        else return 0;
         switch (curPosition.getType()){
             case 1: //Start position
                 break;
@@ -40,8 +42,7 @@ public class Play {
                 RealEstate re = (RealEstate) curPosition;
                 if(re.getOwner() == null) {
                     //BUY FROM BANK
-                    if(!curPlayer.acquireProperty(re)) { curPlayer.leaveGame(); eliminated++; } //If player can't afford the property, they lose
-                    else {
+                    if(curPlayer.acquireProperty(re)) {//Nothing happens if player can't afford the property, they just stay there
                         stats[curPlayer.getId()].incBoughtValue(re.getValue());
                     }
                 }
@@ -50,7 +51,7 @@ public class Play {
                     if(re.getOwner().getId() == curPlayer.getId()) break;
                     Player owner = re.getOwner();
 
-                    if(!curPlayer.payRent(owner,re)) { curPlayer.leaveGame(); }
+                    if(!curPlayer.payRent(owner,re)) { curPlayer.leaveGame(); eliminated++; }
                     else{
                         stats[curPlayer.getId()].incRentPaid(re.getValue()*re.getRent());
                         stats[owner.getId()].incRentReceived(re.getValue()*re.getRent());
@@ -60,7 +61,7 @@ public class Play {
             default: //Something bad happened. Exit!
                 System.exit(-1);
         }
-        //Player was eliminated, return this information
+//        Player was eliminated, return this information
         return eliminated;
     }
 

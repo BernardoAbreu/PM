@@ -14,12 +14,11 @@ public class FileUtils {
 
     public FileUtils(String boardFile, String playsFile){
         String curDir = System.getProperty("user.dir");
-
         //Open files
         try {
             this.boardFile = new BufferedReader(new FileReader(curDir+"/"+boardFile));
             this.playsFile = new BufferedReader(new FileReader(curDir+"/"+playsFile));
-            this.statsFile = new BufferedWriter(new FileWriter(curDir+"/saida.txt"));
+            this.statsFile = new BufferedWriter(new FileWriter(curDir+"/estatísticas.txt"));
         }catch (FileNotFoundException e){
             System.out.println("File not found!");
             e.printStackTrace();

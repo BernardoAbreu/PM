@@ -69,7 +69,7 @@ public class Player implements Account {
 	}
 
 	public boolean acquireProperty(RealEstate property){
-		if(this.getStatement() > property.getValue()){
+		if(this.getStatement() >= property.getValue()){
 			this.withdraw(property.getValue());
 			property.setOwner(this);
 			this.properties.add(property);
@@ -82,16 +82,17 @@ public class Player implements Account {
 
 	public void leaveGame() {
 //		System.out.println("Player: " + String.valueOf(this.id+1) + "  has left the game.");
-		this.withdraw(this.getStatement());
+//		this.withdraw(this.getStatement());
 		this.setPlaying(false);
 		for(RealEstate p : this.properties){
             p.setOwner(null);
-            this.properties.remove(p);
+//            this.properties.remove(p);
         }
+        this.properties = new ArrayList<RealEstate>();
 	}
 
 	public boolean payRent(Player p, RealEstate property){
-		if(this.getStatement() > property.getValue() * property.getRent()){
+		if(this.getStatement() >= property.getValue() * property.getRent()){
 			//pay rent
 			this.withdraw(property.getValue() * property.getRent());
 			p.deposit(property.getValue() * property.getRent());

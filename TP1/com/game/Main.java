@@ -13,6 +13,7 @@ public class Main {
 		}
 
 		FileUtils handler = new FileUtils(args[0], args[1]);
+
 		Monopoly monopoly = new Monopoly(handler);
 
 		monopoly.runGame(handler);

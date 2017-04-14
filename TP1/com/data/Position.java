@@ -1,5 +1,7 @@
 package com.data;
 
+import com.utils.Stats;
+
 public abstract class Position{
 
 	private int type;
@@ -12,5 +14,5 @@ public abstract class Position{
 		this.type = type;
 	}
 
-	public abstract void play(Player p);
+	public abstract boolean play(Player player, Stats[] s);
 }
