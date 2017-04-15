@@ -1,4 +1,4 @@
-package com.data;
+package com.structure;
 
 /**
  * Created by math on 4/14/17.

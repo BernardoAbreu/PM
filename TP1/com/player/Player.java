@@ -1,6 +1,6 @@
-package com.data;
+package com.player;
 
-import com.utils.Stats;
+import com.structure.RealEstate;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,14 +32,8 @@ public class Player implements Account {
 		int oldpos = this.position;
 		int newpos = oldpos + dice;
 
-//		if(newpos>=boardSize){
-			this.position = newpos % boardSize;
-			return newpos/boardSize;
-//		}
-//		else{
-//			this.position = newpos;
-//			return 0;
-//		}
+		this.position = newpos % boardSize;
+		return newpos/boardSize;
 	}
 
 	@Override

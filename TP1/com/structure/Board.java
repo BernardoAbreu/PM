@@ -1,4 +1,4 @@
-package com.data;
+package com.structure;
 
 import com.utils.FileUtils;
 

@@ -1,5 +1,6 @@
-package com.data;
+package com.structure;
 
+import com.player.Player;
 import com.utils.Stats;
 
 public interface Position{

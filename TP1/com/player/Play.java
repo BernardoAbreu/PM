@@ -1,5 +1,7 @@
-package com.data;
+package com.player;
 
+import com.structure.Board;
+import com.structure.Position;
 import com.utils.Stats;
 
 /**
@@ -18,13 +20,15 @@ public class Play {
         Player curPlayer = players[this.playerId-1];
         int eliminated = 0;
         int nroundTrips = 0;
+        //If this player is not on the game anymore, ignore the play
         if (!curPlayer.isPlaying()) return eliminated;
 
+        //Otherwise, walk the player
         nroundTrips = curPlayer.walk(this.diceValue, board.getBoardSize());
 
-        if( nroundTrips != 0) { //Player completed a trip around the board.
+        if( nroundTrips != 0) { //Player completed a number of trips around the board.
             stats[curPlayer.getId()].incnCompletedRounds(nroundTrips);
-            curPlayer.deposit(nroundTrips*500);
+            curPlayer.deposit(nroundTrips*500); //Gets reward
         }
 
         Position curPosition = board.getPosition(curPlayer.getPosition());

@@ -1,5 +1,6 @@
-package com.data;
+package com.structure;
 
+import com.player.Player;
 import com.utils.Stats;
 
 public abstract class RealEstate implements Position{
@@ -59,7 +60,7 @@ public abstract class RealEstate implements Position{
 			//PAY RENT
 			if(this.getOwner().getId() != player.getId()) {
 				Player owner = this.getOwner();
-				if(!player.payRent(owner,this)) { player.leaveGame(); return false;}
+				if(!player.payRent(owner,this)) { player.leaveGame(); return false;} //Player could not afford rent
 				else{
 					stats[player.getId()].incRentPaid(this.getValue()*this.getRent());
 					stats[owner.getId()].incRentReceived(this.getValue()*this.getRent());

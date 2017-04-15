@@ -1,6 +1,7 @@
 package com.game;
 
-import com.data.*;
+import com.player.*;
+import com.structure.Board;
 import com.utils.FileUtils;
 import com.utils.Stats;
 
@@ -38,6 +39,7 @@ public class Monopoly {
         this.plays = new Play[nplays];
         this.players = new Player[nplayers];
 
+        //Aray of stats, will contain the statistics for each player
         Stats[] stats = new Stats[nplayers];
 
         int nValidPlays = 0;
@@ -45,10 +47,10 @@ public class Monopoly {
         initializePlayers(nplayers, initialStatement, stats);
 
         Play play;
-        while((play = readPlay(handler)) != null){
+        while((play = makePlay(handler)) != null){ //While there are valid plays
             nValidPlays++;
-            eliminatedPlayers += play.run(this.players, this.board, stats);
-            if(eliminatedPlayers == nplayers-1) break;
+            eliminatedPlayers += play.run(this.players, this.board, stats); //Execute the play
+            if(eliminatedPlayers == nplayers-1) break; //If there's only one player still in the game, quit
         }
 
         printStats(stats, handler, nValidPlays, nplayers);
@@ -68,7 +70,7 @@ public class Monopoly {
 
     }
 
-    private Play readPlay(FileUtils handler) {
+    private Play makePlay(FileUtils handler) {
         int dice;
         int playerId;
 
@@ -76,17 +78,19 @@ public class Monopoly {
         String[] fields;
 
         Play play;
-
+        //Read the play from file
         playLine = handler.getPlayLine();
-
+        //Return null when play is invalid
         if(playLine.equals("DUMP")) return null;
 
+        //Otherwise, process the play
         fields = playLine.split(";");
 
         if (fields.length!=3){ System.out.println("Wrong number of arguments in play line");}
 
         playerId = Integer.parseInt(fields[1]);
         dice = Integer.parseInt(fields[2]);
+        //Build a Play object with the information gathered.
         play = new Play(playerId,dice);
 
 

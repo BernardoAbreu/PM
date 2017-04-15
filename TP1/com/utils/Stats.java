@@ -8,7 +8,7 @@ public class Stats {
 
     private double finalStatement;
 
-    private float rentReceived;
+    private double rentReceived;
 
     private double rentPaid;
 
