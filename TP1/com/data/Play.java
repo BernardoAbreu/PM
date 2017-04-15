@@ -23,8 +23,8 @@ public class Play {
         nroundTrips = curPlayer.walk(this.diceValue, board.getBoardSize());
 
         if( nroundTrips != 0) { //Player completed a trip around the board.
-            stats[curPlayer.getId()].incnCompletedRounds();
-            curPlayer.deposit(500);
+            stats[curPlayer.getId()].incnCompletedRounds(nroundTrips);
+            curPlayer.deposit(nroundTrips*500);
         }
 
         Position curPosition = board.getPosition(curPlayer.getPosition());

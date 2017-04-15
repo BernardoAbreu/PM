@@ -50,7 +50,8 @@ public class Player implements Account {
 	@Override
 	public double withdraw(double amount){
 		this.statement -= amount;
-		if (statement <= 0){
+
+		if (statement < 0){
 			this.leaveGame();
 			return 0;
 		}

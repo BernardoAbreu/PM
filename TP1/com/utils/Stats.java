@@ -29,8 +29,8 @@ public class Stats {
         return nCompletedRounds;
     }
 
-    public void incnCompletedRounds() {
-        this.nCompletedRounds++;
+    public void incnCompletedRounds(int rounds) {
+        this.nCompletedRounds += rounds;
     }
 
     public double getFinalStatement() {
