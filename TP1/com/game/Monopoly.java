@@ -48,7 +48,7 @@ public class Monopoly {
         while((play = readPlay(handler)) != null){
             nValidPlays++;
             eliminatedPlayers += play.run(this.players, this.board, stats);
-            if(eliminatedPlayers == nplayers) break;
+            if(eliminatedPlayers == nplayers-1) break;
         }
 
         printStats(stats, handler, nValidPlays, nplayers);

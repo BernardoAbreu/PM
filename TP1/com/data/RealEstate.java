@@ -2,7 +2,7 @@ package com.data;
 
 import com.utils.Stats;
 
-public class RealEstate extends Position{
+public abstract class RealEstate implements Position{
 
 	static final int RESIDENCE = 1;
 	static final int COMMERCE = 2;
@@ -21,7 +21,6 @@ public class RealEstate extends Position{
 	private double rent;
 
 	public RealEstate(int id, int value, double rent, int realEstateType){
-		super(3);
 		this.id = id;
 		this.owner = null;
 		this.value = value;

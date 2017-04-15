@@ -20,7 +20,7 @@ public class Player implements Account {
 	public Player(int id){
 		this.id = id;
 		this.playing = true;
-		this.position = 1;
+		this.position = 0;
 		properties = new ArrayList<RealEstate>();
 	}
 
@@ -31,9 +31,15 @@ public class Player implements Account {
 	public int walk(int dice, int boardSize) {
 		int oldpos = this.position;
 		int newpos = oldpos + dice;
-		this.position = newpos % boardSize;
-		if(newpos >= boardSize) return newpos/boardSize;
-		else return 0;
+
+//		if(newpos>=boardSize){
+			this.position = newpos % boardSize;
+			return newpos/boardSize;
+//		}
+//		else{
+//			this.position = newpos;
+//			return 0;
+//		}
 	}
 
 	@Override
@@ -44,8 +50,8 @@ public class Player implements Account {
 	@Override
 	public double withdraw(double amount){
 		this.statement -= amount;
-		if (statement < 0){
-			this.playing = false;
+		if (statement <= 0){
+			this.leaveGame();
 			return 0;
 		}
 		return amount;
@@ -82,11 +88,9 @@ public class Player implements Account {
 
 	public void leaveGame() {
 //		System.out.println("Player: " + String.valueOf(this.id+1) + "  has left the game.");
-//		this.withdraw(this.getStatement());
-		this.setPlaying(false);
+		this.playing = false;
 		for(RealEstate p : this.properties){
             p.setOwner(null);
-//            this.properties.remove(p);
         }
         this.properties = new ArrayList<RealEstate>();
 	}

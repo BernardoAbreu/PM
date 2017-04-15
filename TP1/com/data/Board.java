@@ -3,28 +3,25 @@ package com.data;
 import com.utils.FileUtils;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class Board{
 	
 	private int boardSize;
 	private int startPosition;
 
-
-	private ArrayList<Position> positions;
+	private Position[] positions;
 
 	public Board(int npositions){
 		this.boardSize = npositions;
-		this.positions = new ArrayList<Position>(npositions);
-
+		this.positions = new Position[npositions];
 	}
 
 	public void addPosition(int boardPosition, Position position){
-		this.positions.add(boardPosition-1, position);
+		this.positions[boardPosition-1] = position;
 	}
 
 	public Position getPosition(int boardPosition){
-		return this.positions.get(boardPosition-1);
+		return this.positions[boardPosition];
 	}
 
 	public void setStartPosition(int position){
@@ -85,19 +82,19 @@ public class Board{
 				case 3:
 					switch (realEstateType){
 						case 1:
-							board.addPosition(boardPosition, new RealEstate(boardPosition,realEstateValue, rentRate/100, RealEstate.RESIDENCE));
+							board.addPosition(boardPosition, new Residence(boardPosition,realEstateValue, rentRate/100));
 							break;
 						case 2:
-							board.addPosition(boardPosition, new RealEstate(boardPosition,realEstateValue, rentRate/100, RealEstate.COMMERCE));
+							board.addPosition(boardPosition, new Commerce(boardPosition,realEstateValue, rentRate/100));
 							break;
 						case 3:
-							board.addPosition(boardPosition, new RealEstate(boardPosition,realEstateValue, rentRate/100, RealEstate.INDUSTRY));
+							board.addPosition(boardPosition, new Industry(boardPosition,realEstateValue, rentRate/100));
 							break;
 						case 4:
-							board.addPosition(boardPosition, new RealEstate(boardPosition,realEstateValue, rentRate/100, RealEstate.HOTEL));
+							board.addPosition(boardPosition, new Hotel(boardPosition,realEstateValue, rentRate/100));
 							break;
 						case 5:
-							board.addPosition(boardPosition, new RealEstate(boardPosition,realEstateValue, rentRate/100, RealEstate.HOSPITAL));
+							board.addPosition(boardPosition, new Hospital(boardPosition,realEstateValue, rentRate/100));
 							break;
 					}
 					break;
