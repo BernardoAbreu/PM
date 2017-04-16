@@ -20,6 +20,7 @@ public class Monopoly {
             this.board = Board.makeBoard(handler);
         } catch (IOException e) {
             e.printStackTrace();
+            System.exit(-1);
         }
     }
 
