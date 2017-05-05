@@ -1,0 +1,30 @@
+TRUCO 
+
+Partida:
+
+ - Criar jogadores
+ - while True: (no jogo)
+	 - Embaralhar
+	 - Distribuir 3 cartas p cada jogador
+	 - Criar lista com jogadores (na ordem que os mesmos tem que jogar)
+	 - (Opção: Trucar, jogar carta, retrucar, ou desistir)
+	 	- Jogar carta: Qual?
+	 		- Tira essa carta da mão (coloca na mesa)
+		- Trucar: espera time adversário responder
+		- Retrucar: sempre vai ter essa opção, a não ser que a partida já valha 12
+		- Desistir: Finaliza a jogada (limpa a mão dos jogadores)
+
+	 - Ao final da jogada, olha as cartas na mesa
+	 	- O time com a maior carta vence, e ganha os pontos da jogada
+	 	- Repete até dar >= 12 pontos p algum time (Time ganha)
+
+
+
+
+Main 
+
+	- Criar display (observer)
+	- cria match (registra display observer)
+	- run match 
+		- Quantos jogadores?
+			- cria jogadores (registra display observer)
