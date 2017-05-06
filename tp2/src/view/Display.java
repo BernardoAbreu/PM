@@ -6,4 +6,5 @@ package view;
 public interface Display {
     public void displayInitialScreen();
     public void printString(String s);
+    public int getTeamSize();
 }

@@ -8,7 +8,7 @@ public class Main {
         // write your code here
         Display disp = new TerminalDisplay();
         disp.displayInitialScreen();
-        Match m = new Match();
-        m.run(disp);
+        Match m = new Match(disp);
+        m.run();
     }
 }

@@ -3,6 +3,17 @@ package model;
 /**
  * Created by math on 5/5/17.
  */
-public interface Player {
-    public void play();
+public abstract class Player {
+
+    private int id;
+
+    public Player(int id){
+        this.id = id;
+    }
+
+    public int getId(){
+        return this.id;
+    }
+
+    public abstract void play();
 }

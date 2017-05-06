@@ -10,9 +10,9 @@ public class Card implements Comparable<Card>{
     private Suits suit;
     private char value;
 
-    private static final Map<Card, Integer> cardOrder = new HashMap<Card, Integer>(){{
-        put(new Card())
-    }};
+    // private static final Map<Card, Integer> cardOrder = new HashMap<Card, Integer>(){{
+    //     put(new Card());
+    // }};
 
 
 
