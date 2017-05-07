@@ -67,7 +67,6 @@ public class Match {
 //        deck.printDeck();
 
 //        System.out.println("================= SHUFFLE =====================");
-        this.deck.shuffleDeck();
 ////        deck.printDeck();
 //        System.out.println("=================== GETFIRST ===================");
 //        Card c = deck.getFirstCard();
@@ -124,6 +123,8 @@ public class Match {
         Play play = new Play(d, teams, teamSize);
 
         while(winningTeam.getScore() < maxScore){
+            this.deck.resetDeck();
+            this.deck.shuffleDeck();
             teams.forEach(x-> giveOutCards(x));
             for(Team team: teams){
                 System.out.println("Printing hand of team:  " + String.valueOf(team.getId()));
