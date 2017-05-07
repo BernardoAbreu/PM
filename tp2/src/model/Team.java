@@ -1,6 +1,6 @@
 package model;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.ArrayList;
 
 
@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Created by Math on 5/6/2017.
  */
 public class Team {
-    private Collection<Player> players;
+    private List<Player> players;
     private int score;
 
     public Team(int size){
@@ -24,4 +24,11 @@ public class Team {
     	this.score += score;
     }
 
+    public void addPlayer(Player p){
+        this.players.add(p);
+    }
+
+    public Player getPlayer(int index){
+        return this.players.get(index);
+    }
 }

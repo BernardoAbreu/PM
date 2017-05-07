@@ -15,5 +15,7 @@ public abstract class Player {
         return this.id;
     }
 
-    public abstract void play();
+    public abstract Option getOption();
+
+    public abstract void playCard();
 }

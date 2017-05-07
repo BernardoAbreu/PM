@@ -1,12 +1,9 @@
 package controller;
 
-import model.Team;
-import model.Player;
-import model.Card;
-import model.Deck;
-import model.Suits;
+import model.*;
+
 import view.Display;
-import java.util.Collection;
+import java.util.List;
 import java.util.ArrayList;
 
 import java.util.SplittableRandom;
@@ -20,7 +17,7 @@ public class Match {
 
     private int firstPlayerIndex;
 
-    private Collection<Team> teams;
+    private List<Team> teams;
 
     private Team winningTeam;
 
@@ -46,6 +43,21 @@ public class Match {
         for (int i = 0; i < numberOfTeams; i++){
             teams.add(new Team(teamSize));
         }
+
+        int playerId = 0;
+
+        teams.get(0).addPlayer(new RealPlayer(playerId++));
+
+        for (int i = 1; i < teamSize; i++){
+            teams.get(0).addPlayer(new AIPlayer(playerId++));
+        }
+
+        for (int i = 1; i < numberOfTeams; i++){
+            for (int j = 0; j < teamSize; j++){
+                teams.get(i).addPlayer(new AIPlayer(playerId++));
+            }
+        }
+
 
 
         Deck deck = new Deck();
@@ -75,20 +87,35 @@ public class Match {
 
     public void run(){
 
-        Play play;
+        Play play = new Play(d, teams, teamSize);
 
         while(winningTeam.getScore() < maxScore){
-            play = new Play(d, teams, firstPlayerIndex);
 
-            play.run();
+            play.run(firstPlayerIndex);
 
             Team winner = play.getWinnerTeam();
 
             if(winner.getScore() > winningTeam.getScore()){
                 winningTeam = winner;
             }
+
+            firstPlayerIndex = (firstPlayerIndex+1)%(teamSize*numberOfTeams);
+
+            for(int i = 0; i < teams.size(); i++){
+                d.printString("Team " + i + " - Score: " + teams.get(i).getScore());
+            }
+            d.printString("");
         }
 
+        for(int i = 0; i < teams.size(); i++){
+            d.printString("Team " + i + " - Score: " + teams.get(i).getScore());
+            System.out.println("Players: ");
+            for(int j = 0; j < teamSize; j++){
+                System.out.println(teams.get(i).getPlayer(j).getId());
+            }
+        }
+
+        d.printString("Winning Score: " + winningTeam.getScore());
     }
 
 }
