@@ -10,9 +10,11 @@ import java.util.List;
  */
 public class Deck {
     private List<Card> cards;
+    private List<Card> givenOutCards;
 
     public Deck(){
         this.cards = new ArrayList<Card>();
+        this.givenOutCards = new ArrayList<Card>();
         //MANILHAS
         this.cards.add(new Card(Suits.CLUBS, '4', 14));
         this.cards.add(new Card(Suits.HEARTS, '7', 13));
@@ -66,6 +68,7 @@ public class Deck {
     public Card getFirstCard(){
         Card c = this.cards.get(0);
         this.cards.remove(c);
+        this.givenOutCards.add(c);
         return c;
     }
 
@@ -77,5 +80,12 @@ public class Deck {
         // this.cards.forEach(x-> System.out.println("Suit:  " + String.valueOf(x.getSuit()) + "  Value:  " + String.valueOf(x.getValue())));
         this.cards.forEach(x-> System.out.print(x + " "));
         System.out.println();
+    }
+
+    public void resetDeck(){
+        for(Card c : this.givenOutCards){
+            this.cards.add(c);
+        }
+        this.givenOutCards.clear();
     }
 }
