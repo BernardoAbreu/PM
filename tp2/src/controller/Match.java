@@ -3,6 +3,8 @@ package controller;
 import model.*;
 
 import view.Display;
+
+import java.util.Collection;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -23,6 +25,7 @@ public class Match {
 
     private Display d;
 
+    private Deck deck;
     private static final int numberOfTeams = 2;
 
     private static final int maxScore = 12;
@@ -36,12 +39,12 @@ public class Match {
         firstPlayerIndex = 0;
 
         this.d.printString("team size: " + teamSize);
-        winningTeam = new Team(0);
+        winningTeam = new Team(9999,0);
 
         teams = new ArrayList<Team>(numberOfTeams);
 
         for (int i = 0; i < numberOfTeams; i++){
-            teams.add(new Team(teamSize));
+            teams.add(new Team(i, teamSize));
         }
 
         int playerId = 0;
@@ -60,30 +63,33 @@ public class Match {
 
 
         Table table = new Table(2,2);
-        Deck deck = new Deck();
-        deck.printDeck();
 
-        System.out.println("================= SHUFFLE =====================");
-        deck.shuffleDeck();
+        this.deck = new Deck();
 //        deck.printDeck();
-        System.out.println("=================== GETFIRST ===================");
+
+//        System.out.println("================= SHUFFLE =====================");
+        this.deck.shuffleDeck();
+////        deck.printDeck();
+//        System.out.println("=================== GETFIRST ===================");
+//        Card c = deck.getFirstCard();
+//        System.out.println("c suit:  " + String.valueOf(c.getSuit()) + "  c value: " + String.valueOf(c.getValue()));
+////        deck.printDeck();
+//
+//        Card c2 = deck.getFirstCard();
+//        System.out.println("c2 suit:  " + String.valueOf(c2.getSuit()) + "  c2 value: " + String.valueOf(c2.getValue()));
+//        int result = c.compareTo(c2);
+//        if(result == 0){
+//            System.out.println("igual");
+//        }else if(result == -1){
+//            System.out.println("menor");
+//        }else if(result ==1){
+//            System.out.println("maior");
+//        }else{
+//            System.out.println("ERROR");
+//        }
+
         Card c = deck.getFirstCard();
-        System.out.println("c suit:  " + String.valueOf(c.getSuit()) + "  c value: " + String.valueOf(c.getValue()));
-//        deck.printDeck();
-
         Card c2 = deck.getFirstCard();
-        System.out.println("c2 suit:  " + String.valueOf(c2.getSuit()) + "  c2 value: " + String.valueOf(c2.getValue()));
-        int result = c.compareTo(c2);
-        if(result == 0){
-            System.out.println("igual");
-        }else if(result == -1){
-            System.out.println("menor");
-        }else if(result ==1){
-            System.out.println("maior");
-        }else{
-            System.out.println("ERROR");
-        }
-
         table.addCard(c,0);
         table.addCard(c2,1);
         table.addCard(deck.getFirstCard(),0);
@@ -103,12 +109,19 @@ public class Match {
 
         // System.out.println( Character.toChars(0xd83cdc00 +  13*16 + c.getValue()));
         System.out.println( "\ud83c" + String.valueOf(Character.toChars(0xdc00 + 13*16 + Character.getNumericValue(c.getValue()))));// "\udcdd");
+
     }
 
     public void run(){
 
         Play play = new Play(d, teams, teamSize);
-
+        teams.forEach(x-> giveOutCards(x));
+        for(Team team: teams){
+            System.out.println("Printing hand of team:  " + String.valueOf(team.getId()));
+            for(Player player: team.getPlayers()){
+                player.getHand().printHand();
+            }
+        }
         while(winningTeam.getScore() < maxScore){
 
             play.run(firstPlayerIndex);
@@ -136,6 +149,18 @@ public class Match {
         }
 
         d.printString("Winning Score: " + winningTeam.getScore());
+    }
+
+    private void giveOutCards(Team team){
+        Card card;
+        for(Player player: team.getPlayers()){
+            card = this.deck.getFirstCard();
+            player.getHand().addCard(card);
+            card = this.deck.getFirstCard();
+            player.getHand().addCard(card);
+            card = this.deck.getFirstCard();
+            player.getHand().addCard(card);
+        }
     }
 
 }
