@@ -13,15 +13,21 @@ public class Play {
 
     private Team winnerTeam;
 
+    private Table table;
+
     private Display d;
 
     public Play(Display d, List<Team> teams, int teamSize){
         this.d = d;
         this.teams = teams;
         this.teamSize = teamSize;
+        this.table = new Table(teams.size(), teamSize);
+
     }
 
     public void run(int firstPlayerIndex){
+        this.table.clearTable();
+
         PlayValue playValue = PlayValue.NORMAL;
         Player currentPlayer, nextPlayer;
         Team currentTeam, nextTeam;

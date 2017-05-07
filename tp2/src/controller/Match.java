@@ -59,7 +59,7 @@ public class Match {
         }
 
 
-
+        Table table = new Table(2,2);
         Deck deck = new Deck();
         deck.printDeck();
 
@@ -83,6 +83,26 @@ public class Match {
         }else{
             System.out.println("ERROR");
         }
+
+        table.addCard(c,0);
+        table.addCard(c2,1);
+        table.addCard(deck.getFirstCard(),0);
+        table.addCard(deck.getFirstCard(),1);
+
+        List<Card> t = table.getCardsOnTable();
+
+        for(Card cc : t){
+            System.out.println("c suit:  " + String.valueOf(cc.getSuit()) + "  c value: " + String.valueOf(cc.getValue()));
+        }
+
+        c = table.getHighestCard(0);
+        System.out.println("c suit:  " + String.valueOf(c.getSuit()) + "  c value: " + String.valueOf(c.getValue()));
+        c = table.getHighestCard(1);
+        System.out.println("c suit:  " + String.valueOf(c.getSuit()) + "  c value: " + String.valueOf(c.getValue()));
+        System.out.println("c: " + String.valueOf(c.getValue()) + c.getSuit().getString());
+
+        // System.out.println( Character.toChars(0xd83cdc00 +  13*16 + c.getValue()));
+        System.out.println( "\ud83c" + String.valueOf(Character.toChars(0xdc00 + 13*16 + Character.getNumericValue(c.getValue()))));// "\udcdd");
     }
 
     public void run(){
