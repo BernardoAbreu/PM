@@ -27,16 +27,17 @@ public class Table {
 
     }
 
-    public void addCard(Card card, int playerId, int teamId){
-        System.out.println("Entering addCard");
-        playerCards.put(playerId, card);
 
-        System.out.println(teamCards);
+    private boolean cardExistsOnAnotherTeam(Card card, int currentTeamId){
         boolean exists = false;
+
         Iterator<Map.Entry<Integer, Map<Integer, Card>> > teamIter = teamCards.entrySet().iterator();
+        
         while (teamIter.hasNext()) {
+        
             Map.Entry<Integer, Map<Integer, Card>> teamEntry = teamIter.next();
-            if(teamEntry.getKey() != teamId){
+        
+            if(teamEntry.getKey() != currentTeamId){
                 Iterator<Map.Entry<Integer,Card>> iter = teamEntry.getValue().entrySet().iterator();
                 while (iter.hasNext()) {
                     Map.Entry<Integer,Card> entry = iter.next();
@@ -51,18 +52,31 @@ public class Table {
                 teamIter.remove();
             }
         }
+        return exists;
+    }
 
-        if(!exists){
+    
+    public void addCard(Card card, int playerId, int teamId){
+        // System.out.println("Entering addCard");
+        // System.out.println(teamCards);
+        
+        playerCards.put(playerId, card);
+
+
+        if(!cardExistsOnAnotherTeam(card, teamId)){
             Map<Integer, Card> cards = teamCards.get(teamId);
+
+            //Team does not exists yet
             if (cards == null){
                 cards = new LinkedHashMap<Integer, Card>(teamSize);
                 teamCards.put(teamId, cards);
             }
+
             cards.put(playerId, card);
         }
 
-        System.out.println("Exiting addCard");
-        System.out.println(teamCards);
+        // System.out.println("Exiting addCard");
+        // System.out.println(teamCards);
     }
 
     public Card getHighestCard(int teamId){
@@ -86,7 +100,15 @@ public class Table {
     }
 
     public int getWinnerPlayerId(){
+        System.out.println(teamCards);
+        System.out.println(getWinnerTeamId());
+        System.out.println(teamCards.get(getWinnerTeamId()));
+        System.out.println(maxCardInMap(teamCards.get(getWinnerTeamId())).getKey());
         return maxCardInMap(teamCards.get(getWinnerTeamId())).getKey();
+    }
+
+    private Map.Entry<Integer,Card> maxCardInMap(Map<Integer, Card> map){
+        return Collections.max(map.entrySet(), Map.Entry.comparingByValue());
     }
 
     public void printTable(){
@@ -103,7 +125,4 @@ public class Table {
 
     }
 
-    private Map.Entry<Integer,Card> maxCardInMap(Map<Integer, Card> map){
-        return Collections.max(map.entrySet(), Map.Entry.comparingByValue());
-    }
 }

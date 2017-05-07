@@ -77,7 +77,6 @@ public class Deck {
     }
 
     public void printDeck(){
-        // this.cards.forEach(x-> System.out.println("Suit:  " + String.valueOf(x.getSuit()) + "  Value:  " + String.valueOf(x.getValue())));
         this.cards.forEach(x-> System.out.print(x + " "));
         System.out.println();
     }
