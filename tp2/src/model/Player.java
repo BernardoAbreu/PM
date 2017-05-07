@@ -6,9 +6,15 @@ package model;
 public abstract class Player {
 
     private int id;
+    protected Hand hand;
+
+    public Hand getHand() {
+        return hand;
+    }
 
     public Player(int id){
         this.id = id;
+        this.hand = new Hand();
     }
 
     public int getId(){
