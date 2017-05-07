@@ -17,6 +17,10 @@ public class Play {
 
     private Display d;
 
+    private boolean active;
+
+    private PlayValue playValue;
+
     public Play(Display d, List<Team> teams, int teamSize){
         this.d = d;
         this.teams = teams;
@@ -26,23 +30,94 @@ public class Play {
     }
 
     public void run(int firstPlayerIndex){
+        Player winnerPlayer;
+        Team firstWinner;
+
+        this.playValue = PlayValue.NORMAL;
+
+        this.active = true;
+
+        d.printString("Start of Play\n");
+
+        // First Round
+        round(firstPlayerIndex);
+        if(this.active){
+            if(table.tie()){
+            /*******************************************************************
+            * Quando as cartas jogadas tem o mesmo valor ocorre o empate.
+            * Se ocorrer na primeira rodada, quem empatou deve mostrar a maior
+            * carta, em seguida o adversário. O maior valor ganha. Caso ocorra
+            * empate novamente os jogadores devem mostrar a terceira carta.
+            * Quando o empate ocorre na segunda ou na terceira jogada, ganha
+            * quem fez a primeira.
+            *******************************************************************/
+                System.out.println("tie - round 1");
+                this.table.clearTable();
+                //Put biggest cards on table
+
+                if(table.tie()){
+                    System.out.println("tie - round 1.2");
+                    this.table.clearTable();
+                    //Put all cards on table
+                    
+                    winnerTeam = table.tie() ? null : table.getWinnerTeam();
+                }
+                else{
+                    winnerTeam = table.getWinnerTeam();
+                }
+
+            }
+            else{
+                winnerTeam = table.getWinnerTeam();
+                winnerPlayer = table.getWinnerPlayer();
+                firstWinner = winnerTeam;
+                //Look for index
+
+                for(int i = 0; i < 2; i++){
+                    round(firstPlayerIndex);
+                    
+                    if(!this.active){
+                        break;
+                    }
+                    else if(this.table.tie()){
+                        System.out.println("tie - round " + (i+1));
+                        winnerTeam = firstWinner;
+                        break;
+                    }
+                    else{
+                        winnerTeam = table.getWinnerTeam();
+                        winnerPlayer = table.getWinnerPlayer();
+                    }
+                }
+                
+            }
+        }
+        
+
+        System.out.println("playValue " + playValue + ": " + playValue.getValue());
+
+        if(winnerTeam != null){
+            winnerTeam.addScore(playValue.getValue());
+        }
+    }
+
+
+
+    private void round(int firstPlayerIndex){
         this.table.clearTable();
 
-        PlayValue playValue = PlayValue.NORMAL;
         Player currentPlayer, nextPlayer;
         Team currentTeam, nextTeam;
         int nextIndex;
-
         Option opt, nextOpt;
 
-        d.printString("Start of Play\n");
 
         currentTeam = teams.get(firstPlayerIndex%teams.size());
         currentPlayer = currentTeam.getPlayer(firstPlayerIndex/teams.size());
 
         nextIndex = (firstPlayerIndex+1)%(teamSize*teams.size());
         nextTeam = teams.get(nextIndex%teams.size());
-        nextPlayer =nextTeam.getPlayer(nextIndex/teams.size());
+        nextPlayer = nextTeam.getPlayer(nextIndex/teams.size());
 
 
         Player thisPlayer, otherPlayer;
@@ -107,6 +182,7 @@ public class Play {
             else if(opt == Option.FOLD){
                 System.out.println("Folding");
                 winnerTeam = nextTeam;
+                this.active = false;
                 break;
             }
 
@@ -120,12 +196,7 @@ public class Play {
             nextPlayer = nextTeam.getPlayer(nextIndex/teams.size());
         }
 
-
-        System.out.println("playValue " + playValue + ": " + playValue.getValue());
-
-        winnerTeam.addScore(playValue.getValue());
     }
-
 
     public Team getWinnerTeam(){
         return winnerTeam;

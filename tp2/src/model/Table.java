@@ -12,6 +12,9 @@ public class Table {
     private int numberOfTeams;
     private int teamSize;
 
+    private static final Card emptyCard = new Card(null,'0',0);
+
+
     public Table(int numberOfTeams, int teamSize){
         this.numberOfTeams = numberOfTeams;
         this.teamSize = teamSize;
@@ -19,18 +22,18 @@ public class Table {
         cards = new ArrayList<Card>(numberOfTeams*teamSize);
 
         for(int i = 0; i < numberOfTeams; i++){
-            highestCards.add(null);
+            //empty card
+            highestCards.add(emptyCard);
         }
     }
 
     public void addCard(Card card, int teamIndex){
         cards.add(card);
-        if(highestCards.get(teamIndex) == null){
+        System.out.println(highestCards);
+        if(card.compareTo(highestCards.get(teamIndex)) > 0){
             highestCards.set(teamIndex,card);
         }
-        else if(card.compareTo(highestCards.get(teamIndex)) > 0){
-            highestCards.set(teamIndex,card);
-        }
+        System.out.println(highestCards);
     }
 
     public Card getHighestCard(int teamIndex){
@@ -43,9 +46,21 @@ public class Table {
 
     public void clearTable(){
         for(int i = 0; i < numberOfTeams; i++){
-            highestCards.set(i,null);
+            highestCards.set(i,emptyCard);
         }
         cards.clear();
+    }
+
+    public boolean tie(){
+        return highestCards.stream().allMatch(e -> (e.compareTo(highestCards.get(0)) == 0));
+    }
+
+    public Team getWinnerTeam(){
+        return null;
+    }
+
+    public Player getWinnerPlayer(){
+        return null;
     }
 
 }

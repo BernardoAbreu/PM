@@ -88,48 +88,63 @@ public class Match {
 //            System.out.println("ERROR");
 //        }
 
-        Card c = deck.getFirstCard();
-        Card c2 = deck.getFirstCard();
-        table.addCard(c,0);
-        table.addCard(c2,1);
-        table.addCard(deck.getFirstCard(),0);
-        table.addCard(deck.getFirstCard(),1);
 
-        List<Card> t = table.getCardsOnTable();
+        // teams.forEach(x-> giveOutCards(x));
+        // for(Team team: teams){
+        //     System.out.println("Printing hand of team:  " + String.valueOf(team.getId()));
+        //     for(Player player: team.getPlayers()){
+        //         player.getHand().printHand();
+        //         System.out.println(player.getHand().getCards());
+        //     }
+        // }
 
-        for(Card cc : t){
-            System.out.println("c suit:  " + String.valueOf(cc.getSuit()) + "  c value: " + String.valueOf(cc.getValue()));
-        }
+        // for(int i = 0; i < teams.size(); i++){
+        //     Team team = teams.get(i);
+        //     for(Player player: team.getPlayers()){
+        //         table.addCard(player.getHand().getCards().get(0),i);
+        //     }
+        // }
+        // List<Card> t = table.getCardsOnTable();
 
-        c = table.getHighestCard(0);
-        System.out.println("c suit:  " + String.valueOf(c.getSuit()) + "  c value: " + String.valueOf(c.getValue()));
-        c = table.getHighestCard(1);
-        System.out.println("c suit:  " + String.valueOf(c.getSuit()) + "  c value: " + String.valueOf(c.getValue()));
-        System.out.println("c: " + String.valueOf(c.getValue()) + c.getSuit().getString());
+        // System.out.println("Printing table:");
+        // System.out.println(t);
 
-        // System.out.println( Character.toChars(0xd83cdc00 +  13*16 + c.getValue()));
-        System.out.println( "\ud83c" + String.valueOf(Character.toChars(0xdc00 + 13*16 + Character.getNumericValue(c.getValue()))));// "\udcdd");
+        // System.out.println(table.tie());
+        
+        // table.clearTable();
+        // t = table.getCardsOnTable();
+        // System.out.println(t);
+
+        // for(Team team: teams){
+        //     for(Player player: team.getPlayers()){
+        //         player.getHand().clearHand();
+        //     }
+        // }
 
     }
 
     public void run(){
 
         Play play = new Play(d, teams, teamSize);
-        teams.forEach(x-> giveOutCards(x));
-        for(Team team: teams){
-            System.out.println("Printing hand of team:  " + String.valueOf(team.getId()));
-            for(Player player: team.getPlayers()){
-                player.getHand().printHand();
-            }
-        }
+
         while(winningTeam.getScore() < maxScore){
+            teams.forEach(x-> giveOutCards(x));
+            for(Team team: teams){
+                System.out.println("Printing hand of team:  " + String.valueOf(team.getId()));
+                for(Player player: team.getPlayers()){
+                    // player.getHand().printHand();
+                    System.out.println("Player "+ player.getId() + ": " + player.getHand().getCards());
+                }
+            }
 
             play.run(firstPlayerIndex);
 
             Team winner = play.getWinnerTeam();
-
-            if(winner.getScore() > winningTeam.getScore()){
-                winningTeam = winner;
+            
+            if(winner != null){
+                if(winner.getScore() > winningTeam.getScore()){
+                    winningTeam = winner;
+                }
             }
 
             firstPlayerIndex = (firstPlayerIndex+1)%(teamSize*numberOfTeams);
@@ -138,6 +153,12 @@ public class Match {
                 d.printString("Team " + i + " - Score: " + teams.get(i).getScore());
             }
             d.printString("");
+
+            for(Team team: teams){
+                for(Player player: team.getPlayers()){
+                    player.getHand().clearHand();
+                }
+            }
         }
 
         for(int i = 0; i < teams.size(); i++){
@@ -152,6 +173,7 @@ public class Match {
     }
 
     private void giveOutCards(Team team){
+        this.deck.printDeck();
         Card card;
         for(Player player: team.getPlayers()){
             card = this.deck.getFirstCard();

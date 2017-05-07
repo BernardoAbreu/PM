@@ -42,4 +42,11 @@ public class Card implements Comparable<Card>{
     public int compareTo(Card o) {
         return (this.trucoValue == o.getTrucoValue())? 0 : (this.trucoValue > o.getTrucoValue())? 1: -1;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(getValue()) + ((getSuit()== null) ? "." : getSuit().getString());
+
+    }
+
 }

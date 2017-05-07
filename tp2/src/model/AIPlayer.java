@@ -17,6 +17,6 @@ public class AIPlayer extends Player{
 
     @Override
     public Option getOption(){
-        return Option.RAISE;
+        return Option.ACCEPT;
     }
 }

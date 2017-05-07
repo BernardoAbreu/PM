@@ -69,6 +69,13 @@ public class TerminalDisplay implements Display {
         }
     }
 
+// public void printCards(){
+// System.out.println("c: " + String.valueOf(c.getValue()) + c.getSuit().getString());
+
+//         // System.out.println( Character.toChars(0xd83cdc00 +  13*16 + c.getValue()));
+//         System.out.println( "\ud83c" + String.valueOf(Character.toChars(0xdc00 + 13*16 + Character.getNumericValue(c.getValue()))));// "\udcdd");
+
+// }
     public int getTeamSize(){
         return teamSize;
     }
