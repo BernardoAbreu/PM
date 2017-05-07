@@ -9,6 +9,8 @@ public class Play {
 
     private List<Team> teams;
 
+    private int teamsScore[];
+
     private int teamSize;
 
     private Team winnerTeam;
@@ -26,12 +28,12 @@ public class Play {
         this.teams = teams;
         this.teamSize = teamSize;
         this.table = new Table(teams.size(), teamSize);
+        this.teamsScore = new int[teams.size()];
 
     }
 
     public void run(int firstPlayerIndex){
-        Player winnerPlayer;
-        Team firstWinner;
+        int firstWinnerId, winnerTeamId = 0;
 
         this.playValue = PlayValue.NORMAL;
 
@@ -39,8 +41,9 @@ public class Play {
 
         d.printString("Start of Play\n");
 
+        System.out.println("Round 1");
         // First Round
-        round(firstPlayerIndex);
+        winnerTeamId = round(firstPlayerIndex);
         if(this.active){
             if(table.tie()){
             /*******************************************************************
@@ -60,51 +63,87 @@ public class Play {
                     this.table.clearTable();
                     //Put all cards on table
                     
-                    winnerTeam = table.tie() ? null : table.getWinnerTeam();
+                    winnerTeamId = table.tie() ? -1 : table.getWinnerTeamId();
                 }
                 else{
-                    winnerTeam = table.getWinnerTeam();
+                    winnerTeamId = table.getWinnerTeamId();
                 }
 
             }
             else{
-                winnerTeam = table.getWinnerTeam();
-                winnerPlayer = table.getWinnerPlayer();
-                firstWinner = winnerTeam;
-                //Look for index
+                winnerTeamId = table.getWinnerTeamId();
+                firstPlayerIndex = getIndexOfPlayer(table.getWinnerPlayerId());
+                firstWinnerId = winnerTeamId;
 
                 for(int i = 0; i < 2; i++){
-                    round(firstPlayerIndex);
+                    System.out.println("Round " + (i+2));
+                    winnerTeamId = round(firstPlayerIndex);
                     
                     if(!this.active){
                         break;
                     }
                     else if(this.table.tie()){
-                        System.out.println("tie - round " + (i+1));
-                        winnerTeam = firstWinner;
+                        System.out.println("tie - round " + (i+2));
+                        winnerTeamId = firstWinnerId;
                         break;
                     }
                     else{
-                        winnerTeam = table.getWinnerTeam();
-                        winnerPlayer = table.getWinnerPlayer();
+                        winnerTeamId = table.getWinnerTeamId();
+                        firstPlayerIndex = getIndexOfPlayer(table.getWinnerPlayerId());
                     }
                 }
-                
+
             }
         }
-        
+
 
         System.out.println("playValue " + playValue + ": " + playValue.getValue());
 
-        if(winnerTeam != null){
+        if(winnerTeamId != -1){
+
+            for(Team t : teams){
+                if(t.getId() == winnerTeamId){
+                    winnerTeam = t;
+                    break;
+                }
+            }
+
+            System.out.println("Winner team:  " + String.valueOf(winnerTeam.getId()));
+            for(Player player: winnerTeam.getPlayers()){
+                System.out.println("Player "+ player.getId());
+            }
             winnerTeam.addScore(playValue.getValue());
+        }
+        else{
+            winnerTeam = null;
         }
     }
 
+    private int getIndexOfPlayer(int id){
+
+        int i = 0;
+        for(Team t : teams){
+            for (Player p : t.getPlayers()){
+                if(p.getId() == id){
+                    return i;
+                }
+                i++;
+            }
+        }
+        return i;
+    }
 
 
-    private void round(int firstPlayerIndex){
+    //Return Id of winning team if fold, otherwise -1
+    private int round(int firstPlayerIndex){
+        int winnerTeamId = -1;
         this.table.clearTable();
+
+        for(Team team: teams){
+            for(Player player: team.getPlayers()){
+                table.addCard(player.getHand().getCards().get(0),player.getId(), team.getId());
+            }
+        }
 
         Player currentPlayer, nextPlayer;
         Team currentTeam, nextTeam;
@@ -155,7 +194,7 @@ public class Play {
                     if(playValue == PlayValue.DOZE){
                         opt = Option.ACCEPT;
                     }
-                    
+
                     // Raising again
                     if(opt == Option.RAISE){
                         //swap players
@@ -177,17 +216,16 @@ public class Play {
             if(opt == Option.ACCEPT){
                 // put card on table
                 System.out.println("Accepting");
-                winnerTeam = currentTeam;
             }
             else if(opt == Option.FOLD){
                 System.out.println("Folding");
-                winnerTeam = nextTeam;
+                winnerTeamId = nextTeam.getId();
                 this.active = false;
                 break;
             }
 
             System.out.println("Player: " + currentTeam.getPlayer(nextIndex/teams.size()).getId());
-            
+
             currentTeam = nextTeam;
             currentPlayer = nextPlayer;
 
@@ -196,6 +234,7 @@ public class Play {
             nextPlayer = nextTeam.getPlayer(nextIndex/teams.size());
         }
 
+        return winnerTeamId;
     }
 
     public Team getWinnerTeam(){

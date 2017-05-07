@@ -62,7 +62,6 @@ public class Match {
         }
 
 
-        Table table = new Table(2,2);
 
         this.deck = new Deck();
 //        deck.printDeck();
@@ -88,6 +87,7 @@ public class Match {
 //            System.out.println("ERROR");
 //        }
 
+        // Table table = new Table(numberOfTeams,teamSize);
 
         // teams.forEach(x-> giveOutCards(x));
         // for(Team team: teams){
@@ -98,22 +98,18 @@ public class Match {
         //     }
         // }
 
-        // for(int i = 0; i < teams.size(); i++){
-        //     Team team = teams.get(i);
+        // for(Team team: teams){
         //     for(Player player: team.getPlayers()){
-        //         table.addCard(player.getHand().getCards().get(0),i);
+        //         table.addCard(player.getHand().getCards().get(0),player.getId(), team.getId());
         //     }
         // }
-        // List<Card> t = table.getCardsOnTable();
-
         // System.out.println("Printing table:");
-        // System.out.println(t);
+        // table.printTable();
 
         // System.out.println(table.tie());
-        
+
         // table.clearTable();
-        // t = table.getCardsOnTable();
-        // System.out.println(t);
+        // table.printTable();
 
         // for(Team team: teams){
         //     for(Player player: team.getPlayers()){

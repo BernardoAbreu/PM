@@ -1,13 +1,16 @@
 package model;
 
-import java.util.List;
-import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Iterator;
+import java.util.Collections;
 
 public class Table {
 
-    private List<Card> highestCards;
+    private Map<Integer, Map<Integer, Card> > teamCards;
 
-    private List<Card> cards;
+    private Map<Integer, Card> playerCards;
 
     private int numberOfTeams;
     private int teamSize;
@@ -18,49 +21,89 @@ public class Table {
     public Table(int numberOfTeams, int teamSize){
         this.numberOfTeams = numberOfTeams;
         this.teamSize = teamSize;
-        highestCards = new ArrayList<Card>(numberOfTeams);
-        cards = new ArrayList<Card>(numberOfTeams*teamSize);
+        teamCards = new HashMap<Integer, Map<Integer, Card>>(numberOfTeams);
+        playerCards = new HashMap<Integer, Card>(numberOfTeams*teamSize);
 
-        for(int i = 0; i < numberOfTeams; i++){
-            //empty card
-            highestCards.add(emptyCard);
+
+    }
+
+    public void addCard(Card card, int playerId, int teamId){
+        System.out.println("Entering addCard");
+        playerCards.put(playerId, card);
+
+        System.out.println(teamCards);
+        boolean exists = false;
+        Iterator<Map.Entry<Integer, Map<Integer, Card>> > teamIter = teamCards.entrySet().iterator();
+        while (teamIter.hasNext()) {
+            Map.Entry<Integer, Map<Integer, Card>> teamEntry = teamIter.next();
+            if(teamEntry.getKey() != teamId){
+                Iterator<Map.Entry<Integer,Card>> iter = teamEntry.getValue().entrySet().iterator();
+                while (iter.hasNext()) {
+                    Map.Entry<Integer,Card> entry = iter.next();
+                    if(card.compareTo(entry.getValue()) == 0){
+                        iter.remove();
+                        exists = true;
+                        break;
+                    }
+                }
+            }
+            if(teamEntry.getValue().isEmpty()){
+                teamIter.remove();
+            }
         }
-    }
 
-    public void addCard(Card card, int teamIndex){
-        cards.add(card);
-        System.out.println(highestCards);
-        if(card.compareTo(highestCards.get(teamIndex)) > 0){
-            highestCards.set(teamIndex,card);
+        if(!exists){
+            Map<Integer, Card> cards = teamCards.get(teamId);
+            if (cards == null){
+                cards = new LinkedHashMap<Integer, Card>(teamSize);
+                teamCards.put(teamId, cards);
+            }
+            cards.put(playerId, card);
         }
-        System.out.println(highestCards);
+
+        System.out.println("Exiting addCard");
+        System.out.println(teamCards);
     }
 
-    public Card getHighestCard(int teamIndex){
-        return highestCards.get(teamIndex);
+    public Card getHighestCard(int teamId){
+        return teamCards.get(teamId).get(0);
     }
 
-    public List<Card> getCardsOnTable(){
-        return cards;
-    }
 
     public void clearTable(){
-        for(int i = 0; i < numberOfTeams; i++){
-            highestCards.set(i,emptyCard);
-        }
-        cards.clear();
+        playerCards.clear();
+        teamCards.clear();
     }
 
     public boolean tie(){
-        return highestCards.stream().allMatch(e -> (e.compareTo(highestCards.get(0)) == 0));
+        return teamCards.isEmpty();
+
     }
 
-    public Team getWinnerTeam(){
-        return null;
+    public int getWinnerTeamId(){
+        return Collections.max(teamCards.entrySet(), (entry1, entry2) -> 
+            maxCardInMap(entry1.getValue()).getValue().compareTo(maxCardInMap(entry2.getValue()).getValue())).getKey();
     }
 
-    public Player getWinnerPlayer(){
-        return null;
+    public int getWinnerPlayerId(){
+        return maxCardInMap(teamCards.get(getWinnerTeamId())).getKey();
     }
 
+    public void printTable(){
+        System.out.println(playerCards);
+        System.out.println(teamCards);
+        
+        Iterator<Map.Entry<Integer, Map<Integer, Card>> > teamIter = teamCards.entrySet().iterator();
+        while (teamIter.hasNext()) {
+            Map.Entry<Integer, Map<Integer, Card>> teamEntry = teamIter.next();
+            System.out.println(maxCardInMap(teamEntry.getValue()).getKey());
+        }
+        System.out.println("Winning Team: " + getWinnerTeamId());
+        System.out.println("Winning Player: " + getWinnerPlayerId());
+
+    }
+
+    private Map.Entry<Integer,Card> maxCardInMap(Map<Integer, Card> map){
+        return Collections.max(map.entrySet(), Map.Entry.comparingByValue());
+    }
 }
