@@ -23,5 +23,5 @@ public abstract class Player {
 
     public abstract Option getOption();
 
-    public abstract void playCard();
+    public abstract void playCard(Table t, Team team);
 }

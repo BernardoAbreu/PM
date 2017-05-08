@@ -115,13 +115,13 @@ public class Table {
         System.out.println(playerCards);
         System.out.println(teamCards);
         
-        Iterator<Map.Entry<Integer, Map<Integer, Card>> > teamIter = teamCards.entrySet().iterator();
-        while (teamIter.hasNext()) {
-            Map.Entry<Integer, Map<Integer, Card>> teamEntry = teamIter.next();
-            System.out.println(maxCardInMap(teamEntry.getValue()).getKey());
-        }
-        System.out.println("Winning Team: " + getWinnerTeamId());
-        System.out.println("Winning Player: " + getWinnerPlayerId());
+        // Iterator<Map.Entry<Integer, Map<Integer, Card>> > teamIter = teamCards.entrySet().iterator();
+        // while (teamIter.hasNext()) {
+        //     Map.Entry<Integer, Map<Integer, Card>> teamEntry = teamIter.next();
+        //     System.out.println(maxCardInMap(teamEntry.getValue()).getKey());
+        // }
+        // System.out.println("Winning Team: " + getWinnerTeamId());
+        // System.out.println("Winning Player: " + getWinnerPlayerId());
 
     }
 

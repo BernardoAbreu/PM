@@ -175,12 +175,13 @@ public class Play {
         int winnerTeamId = -1;
         this.table.clearTable();
 
-        for(Team team: teams){
-            for(Player player: team.getPlayers()){
-                table.addCard(player.getHand().getCards().get(0),player.getId(), team.getId());
-            }
-        }
-
+        // for(Team team: teams){
+        //     for(Player player: team.getPlayers()){
+        //         table.addCard(player.getHand().getCards().get(0),player.getId(), team.getId());
+        //     }
+        // }
+        this.table.printTable();
+        teams.get(0).getPlayer(0).getHand().printHand();
         Player currentPlayer, nextPlayer;
         Team currentTeam, nextTeam;
         int nextIndex;
@@ -252,6 +253,7 @@ public class Play {
             if(opt == Option.ACCEPT){
                 // put card on table
                 System.out.println(" Accepting");
+                currentPlayer.playCard(table,currentTeam);
             }
             else if(opt == Option.FOLD){
                 System.out.println(" Folding");

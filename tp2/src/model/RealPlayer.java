@@ -12,9 +12,19 @@ public class RealPlayer extends Player{
     }
 
     @Override
-    public void playCard() {
+    public void playCard(Table table, Team team) {
+        Scanner sc = new Scanner(System.in);
         System.out.println("Choose");
 
+        this.getHand().printHand();
+
+        for(int i = 0; i < this.getHand().getCards().size(); i++){
+            System.out.print((i + 1) +  " ");
+        }
+        System.out.println();
+        int opt = sc.nextInt();
+        Card c = this.getHand().removeCard(opt-1);
+        table.addCard(c, this.getId(), team.getId());
     }
 
     @Override

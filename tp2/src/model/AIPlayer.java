@@ -10,8 +10,12 @@ public class AIPlayer extends Player{
     }
 
     @Override
-    public void playCard() {
+    public void playCard(Table table, Team team) {
         System.out.println("Computer choosing");
+
+        table.addCard(this.getHand().removeCard(0),this.getId(), team.getId());
+
+        table.printTable();
 
     }
 
