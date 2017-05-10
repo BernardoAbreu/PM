@@ -126,13 +126,13 @@ public class Match {
             this.deck.resetDeck();
             this.deck.shuffleDeck();
             teams.forEach(x-> giveOutCards(x));
-            for(Team team: teams){
-                System.out.println("Printing hand of team:  " + String.valueOf(team.getId()));
-                for(Player player: team.getPlayers()){
-                    // player.getHand().printHand();
-                    System.out.println("Player "+ player.getId() + ": " + player.getHand().getCards());
-                }
-            }
+            // for(Team team: teams){
+            //     System.out.println("Printing hand of team:  " + String.valueOf(team.getId()));
+            //     for(Player player: team.getPlayers()){
+            //         // player.getHand().printHand();
+            //         System.out.println("Player "+ player.getId() + ": " + player.getHand().getCards());
+            //     }
+            // }
 
             play.run(firstPlayerIndex);
 
@@ -170,7 +170,7 @@ public class Match {
     }
 
     private void giveOutCards(Team team){
-        this.deck.printDeck();
+        // this.deck.printDeck();
         Card card;
         for(Player player: team.getPlayers()){
             card = this.deck.getFirstCard();

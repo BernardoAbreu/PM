@@ -29,6 +29,8 @@ public class RealPlayer extends Player{
 
     @Override
     public Option getOption(){
+        System.out.println("Your hand:");
+        this.getHand().printHand();
         Scanner sc = new Scanner(System.in);
 
         System.out.println("1- Raise 2- Accept 3- Fold:");

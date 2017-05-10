@@ -45,7 +45,7 @@ public class Play {
 
         d.printString("Start of Play\n");
 
-        System.out.println("Round 1");
+        System.out.println("\nRound 1");
         // First Round
         winnerTeamId = round(firstPlayerIndex);
         if(this.active){
@@ -58,12 +58,12 @@ public class Play {
             * Quando o empate ocorre na segunda ou na terceira jogada, ganha
             * quem fez a primeira.
             *******************************************************************/
-                System.out.println("tie - round 1");
+                // System.out.println("tie - round 1");
                 this.table.clearTable();
                 //Put biggest cards on table
 
                 if(table.tie()){
-                    System.out.println("tie - round 1.2");
+                    // System.out.println("tie - round 1.2");
                     this.table.clearTable();
                     //Put all cards on table
                     
@@ -81,11 +81,11 @@ public class Play {
                 winnerTeamId = table.getWinnerTeamId();
                 firstPlayerIndex = getIndexOfPlayer(table.getWinnerPlayerId());
                 firstWinnerId = winnerTeamId;
-                System.out.println("Round 1 Winner - Id: " + table.getWinnerPlayerId() + " Index: " + firstPlayerIndex);
+                System.out.println("\nRound 1 Winner - Id: " + table.getWinnerPlayerId());
                 this.teamsScore[winnerTeamId] = 1;
 
                 for(int i = 0; i < 2; i++){
-                    System.out.println("Round " + (i+2));
+                    System.out.println("\nRound " + (i+2));
                     winnerTeamId = round(firstPlayerIndex);
                     
                     if(!this.active){
@@ -93,14 +93,14 @@ public class Play {
                         break;
                     }
                     else if(this.table.tie()){
-                        System.out.println("tie - round " + (i+2));
+                        // System.out.println("tie - round " + (i+2));
                         this.teamsScore[firstWinnerId]++;
                         break;
                     }
                     else{
                         winnerTeamId = table.getWinnerTeamId();
                         firstPlayerIndex = getIndexOfPlayer(table.getWinnerPlayerId());
-                        System.out.println("Round "+(i+2)+" Winner - Id: " +table.getWinnerPlayerId() + " Index: " + firstPlayerIndex);
+                        System.out.println("\nRound "+(i+2)+" Winner - Id: " +table.getWinnerPlayerId());
 
                         this.teamsScore[winnerTeamId]++;
                         if(this.teamsScore[winnerTeamId] == 2){
@@ -118,10 +118,10 @@ public class Play {
 
         System.out.println("playValue " + playValue + ": " + playValue.getValue());
 
-        for(int i = 0; i < teams.size(); i++){
-            System.out.print(this.teamsScore[i] + " ");
-        }
-        System.out.println();
+        // for(int i = 0; i < teams.size(); i++){
+        //     System.out.print(this.teamsScore[i] + " ");
+        // }
+        // System.out.println();
 
         winnerTeam = null;
         for(int i = 0; i < teams.size(); i++){
@@ -138,10 +138,10 @@ public class Play {
         // }
 
         if(winnerTeam != null){
-            System.out.println("Winner team:  " + String.valueOf(winnerTeam.getId()));
-            for(Player player: winnerTeam.getPlayers()){
-                System.out.println("Player "+ player.getId());
-            }
+            System.out.println("\nWinner team:  " + String.valueOf(winnerTeam.getId()));
+            // for(Player player: winnerTeam.getPlayers()){
+            //     System.out.println("Player "+ player.getId());
+            // }
             winnerTeam.addScore(playValue.getValue());
         }
 
@@ -149,12 +149,12 @@ public class Play {
 
     private int getIndexOfPlayer(int id){
 
-        for(Team t : teams){
-            for (Player p : t.getPlayers()){
-                System.out.print(p.getId() + " ");
-            }
-        }
-        System.out.println();
+        // for(Team t : teams){
+        //     for (Player p : t.getPlayers()){
+        //         System.out.print(p.getId() + " ");
+        //     }
+        // }
+        // System.out.println();
         int teamIndex = 0;
         for(Team t : teams){
             int playerIndex = 0;
@@ -180,17 +180,17 @@ public class Play {
         //         table.addCard(player.getHand().getCards().get(0),player.getId(), team.getId());
         //     }
         // }
-        this.table.printTable();
-        teams.get(0).getPlayer(0).getHand().printHand();
+        // this.table.printTable();
+        // teams.get(0).getPlayer(0).getHand().printHand();
         Player currentPlayer, nextPlayer;
         Team currentTeam, nextTeam;
         int nextIndex;
         Option opt, nextOpt;
 
-        System.out.println("firstPlayerIndex: " + firstPlayerIndex);
+        // System.out.println("firstPlayerIndex: " + firstPlayerIndex);
         currentTeam = teams.get(firstPlayerIndex%teams.size());
         currentPlayer = currentTeam.getPlayer(firstPlayerIndex/teams.size());
-        System.out.println("currentPlayer: " + currentPlayer.getId());
+        // System.out.println("currentPlayer: " + currentPlayer.getId());
         nextIndex = (firstPlayerIndex+1)%(teamSize*teams.size());
         nextTeam = teams.get(nextIndex%teams.size());
         nextPlayer = nextTeam.getPlayer(nextIndex/teams.size());
@@ -216,7 +216,7 @@ public class Play {
 
                 // Get other players response
                 opt = otherPlayer.getOption();
-                System.out.println("Player " + otherPlayer.getId() + " choosing:");
+                // System.out.println("Player " + otherPlayer.getId() + " choosing:");
                 // Folding from this turn
                 if(opt == Option.FOLD){
                     nextTeam = thisTeam;
@@ -268,6 +268,7 @@ public class Play {
             nextIndex = (nextIndex + 1)%(teamSize*teams.size());
             nextTeam = teams.get(nextIndex%teams.size());
             nextPlayer = nextTeam.getPlayer(nextIndex/teams.size());
+            System.out.println();
         }
 
         return winnerTeamId;

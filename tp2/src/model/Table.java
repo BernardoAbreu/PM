@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Iterator;
 import java.util.Collections;
+import java.util.Comparator;
 
 public class Table {
 
@@ -94,16 +95,21 @@ public class Table {
 
     }
 
+    private Card maxCardInTeam(Map.Entry<Integer, Map<Integer, Card>> entry){
+        return maxCardInMap(entry.getValue()).getValue();
+    }
+
     public int getWinnerTeamId(){
-        return Collections.max(teamCards.entrySet(), (entry1, entry2) -> 
-            maxCardInMap(entry1.getValue()).getValue().compareTo(maxCardInMap(entry2.getValue()).getValue())).getKey();
+        return Collections.max(teamCards.entrySet(), Comparator.comparing(e -> maxCardInTeam(e))).getKey();
+        // return Collections.max(teamCards.entrySet(), (entry1, entry2) -> 
+        //     maxCardInTeam(entry1).compareTo(maxCardInTeam(entry2))).getKey();
     }
 
     public int getWinnerPlayerId(){
-        System.out.println(teamCards);
-        System.out.println(getWinnerTeamId());
-        System.out.println(teamCards.get(getWinnerTeamId()));
-        System.out.println(maxCardInMap(teamCards.get(getWinnerTeamId())).getKey());
+        // System.out.println(teamCards);
+        // System.out.println(getWinnerTeamId());
+        // System.out.println(teamCards.get(getWinnerTeamId()));
+        // System.out.println(maxCardInMap(teamCards.get(getWinnerTeamId())).getKey());
         return maxCardInMap(teamCards.get(getWinnerTeamId())).getKey();
     }
 
@@ -112,8 +118,9 @@ public class Table {
     }
 
     public void printTable(){
+        System.out.println("Printing table:");
         System.out.println(playerCards);
-        System.out.println(teamCards);
+        // System.out.println(teamCards);
         
         // Iterator<Map.Entry<Integer, Map<Integer, Card>> > teamIter = teamCards.entrySet().iterator();
         // while (teamIter.hasNext()) {
