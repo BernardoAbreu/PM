@@ -1,13 +1,10 @@
 package model;
 
-import java.util.Map;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Iterator;
+import view.TableObserver;
 
-public class Table implements Iterable<Card>{
+import java.util.*;
+
+public class Table extends Observable implements Iterable<Card>{
 
     private Map<Integer, Map<Integer, Card> > teamCards;
 
@@ -18,35 +15,37 @@ public class Table implements Iterable<Card>{
 
     private static final Card emptyCard = new Card(null,'0',0);
 
+    private Observer observer;
 
     public Table(int numberOfTeams, int teamSize){
         this.numberOfTeams = numberOfTeams;
         this.teamSize = teamSize;
-        teamCards = new HashMap<Integer, Map<Integer, Card>>(numberOfTeams);
-        playerCards = new HashMap<Integer, Card>(numberOfTeams*teamSize);
-
+        this.teamCards = new HashMap<Integer, Map<Integer, Card>>(numberOfTeams);
+        this.playerCards = new HashMap<Integer, Card>(numberOfTeams*teamSize);
+        this.observer = TableObserver.getInstance();
     }
 
     
     public void addCard(Card card, int playerId, int teamId){
         
-        playerCards.put(playerId, card);
+        this.playerCards.put(playerId, card);
 
-        Map<Integer, Card> cards = teamCards.get(teamId);
+        Map<Integer, Card> cards = this.teamCards.get(teamId);
 
         //Team does not exists yet
         if (cards == null){
-            cards = new LinkedHashMap<Integer, Card>(teamSize);
-            teamCards.put(teamId, cards);
+            cards = new LinkedHashMap<Integer, Card>(this.teamSize);
+            this.teamCards.put(teamId, cards);
         }
 
         cards.put(playerId, card);
-        printTable();
+        notifyObservers();
+//        printTable();
     }
 
 
     public Card getHighestCard(int teamId){
-        Map.Entry<Integer,Card> maxEntry = maxCardInMap(teamCards.get(teamId));
+        Map.Entry<Integer,Card> maxEntry = maxCardInMap(this.teamCards.get(teamId));
         if(maxEntry == null){
             return this.emptyCard;
         }
@@ -57,8 +56,8 @@ public class Table implements Iterable<Card>{
 
 
     public void clearTable(){
-        playerCards.clear();
-        teamCards.clear();
+        this.playerCards.clear();
+        this.teamCards.clear();
     }
 
     public boolean isEmpty(){
@@ -68,9 +67,9 @@ public class Table implements Iterable<Card>{
 
     public boolean tie(){
 
-        if(teamCards.size() > 0){
+        if(this.teamCards.size() > 0){
 
-            Iterator<Map.Entry<Integer, Map<Integer, Card>> > teamIter = teamCards.entrySet().iterator();
+            Iterator<Map.Entry<Integer, Map<Integer, Card>> > teamIter = this.teamCards.entrySet().iterator();
             Card lastCard = maxCardInTeam(teamIter.next());
             while (teamIter.hasNext()) {
                 Card currentCard = maxCardInTeam(teamIter.next());;
@@ -106,15 +105,15 @@ public class Table implements Iterable<Card>{
 
 
     public int getWinnerTeamId(){
-        return Collections.max(teamCards.entrySet(), Comparator.comparing(e -> maxCardInTeam(e))).getKey();
+        return Collections.max(this.teamCards.entrySet(), Comparator.comparing(e -> maxCardInTeam(e))).getKey();
     }
 
     public Card getMaxCardInTable(){
-        if(playerCards.isEmpty()){
+        if(this.playerCards.isEmpty()){
             return this.emptyCard;
         }
         else{
-            return Collections.max(playerCards.entrySet(), Map.Entry.comparingByValue()).getValue();
+            return Collections.max(this.playerCards.entrySet(), Map.Entry.comparingByValue()).getValue();
         }
     }
 
@@ -130,20 +129,10 @@ public class Table implements Iterable<Card>{
     }
 
 
-    public void printTable(){
-        System.out.println("Printing table:");
-        System.out.println(playerCards);
-        // System.out.println(teamCards);
-        
-        // Iterator<Map.Entry<Integer, Map<Integer, Card>> > teamIter = teamCards.entrySet().iterator();
-        // while (teamIter.hasNext()) {
-        //     Map.Entry<Integer, Map<Integer, Card>> teamEntry = teamIter.next();
-        //     System.out.println(maxCardInMap(teamEntry.getValue()).getKey());
-        // }
-        // System.out.println("Winning Team: " + getWinnerTeamId());
-        // System.out.println("Winning Player: " + getWinnerPlayerId());
-
-    }
+//    public void printTable(){
+//        System.out.println("Printing table:");
+//        System.out.println(playerCards);
+//    }
 
     private class TableIterator implements Iterator<Card> {
         private Iterator< Map.Entry<Integer, Card>> playerIter;
@@ -175,4 +164,8 @@ public class Table implements Iterable<Card>{
         return new TableIterator(this);
     }
 
+    @Override
+    public void notifyObservers(){
+        this.observer.update(this, null);
+    }
 }
