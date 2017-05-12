@@ -66,7 +66,7 @@ public class PlayControl {
             this.play.setWinnerTeam(this.play.getTeams().get(winnerTeamId));
 //            System.out.println("playValue " + this.play.getPlayValue() + ": " + this.play.getPlayValue().getValue());
 //            System.out.println("\nWinner team:  " + String.valueOf(this.play.getWinnerTeam().getId()));
-//            this.play.getWinnerTeam().addScore(this.play.getPlayValue().getValue());
+            this.play.getWinnerTeam().addScore(this.play.getPlayValue().getValue());
         }
 
     }
