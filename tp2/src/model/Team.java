@@ -41,4 +41,10 @@ public class Team {
     public int getId() {
         return id;
     }
+
+    public void clearPlayersHands(){
+        for(Player player : this.players){
+            player.getHand().clearHand();
+        }
+    }
 }

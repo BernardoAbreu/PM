@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 
-public class Play {
+public class PlayControl {
 
     private List<Team> teams;
 
@@ -20,7 +20,7 @@ public class Play {
 
     private PlayValue playValue;
 
-    public Play(Display d, List<Team> teams, int teamSize){
+    public PlayControl(Display d, List<Team> teams, int teamSize){
         this.d = d;
         this.teams = teams;
         this.table = new Table(teams.size(), teamSize);
@@ -36,12 +36,12 @@ public class Play {
 
 
     public Team getWinnerTeam(){
-        return winnerTeam;
+        return this.winnerTeam;
     }
 
 
     public void run(int firstPlayerIndex){
-        d.printString("Start of Play\n");
+        d.printString("Start of PlayControl\n");
 
         for(Team t : this.teams){
             for(Player p : t.getPlayers()){

@@ -24,13 +24,6 @@ public class Hand implements Iterable<Card>{
         return this.cards.remove(index);
     }
 
-    // public void printHand(){
-    //     System.out.println("Printing hand: ");
-    //     // this.cards.forEach(x-> System.out.println("SUIT: " + String.valueOf(x.getSuit()) + "  VALUE:  " + String.valueOf(x.getValue())));
-    //     this.cards.forEach(x-> System.out.print(x + " "));
-    //     System.out.println();
-    // }
-
     public List<Card> getCards(){
         return this.cards;
     }

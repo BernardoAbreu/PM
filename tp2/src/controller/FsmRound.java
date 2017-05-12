@@ -1,11 +1,6 @@
 package controller;
 
-import java.io.*;
-import java.util.Scanner;
-import model.Option;
-import model.Player;
-import model.Team;
-import model.Table;
+import model.*;
 
 
 abstract class RoundState{

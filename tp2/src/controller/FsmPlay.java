@@ -2,10 +2,8 @@ package controller;
 
 import java.util.List;
 import java.util.ArrayList;
-import model.Player;
-import model.Team;
-import model.Table;
-import model.Card;
+
+import model.*;
 
 public class FsmPlay {
 

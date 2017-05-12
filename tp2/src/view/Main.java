@@ -1,6 +1,6 @@
 package view;
 
-import controller.Match;
+import controller.MatchControl;
 
 public class Main {
 
@@ -8,7 +8,7 @@ public class Main {
         // write your code here
         Display disp = new TerminalDisplay();
         disp.displayInitialScreen();
-        Match m = new Match(disp);
+        MatchControl m = new MatchControl(disp);
         m.run();
     }
 }
