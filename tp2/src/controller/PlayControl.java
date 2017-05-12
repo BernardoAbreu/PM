@@ -8,23 +8,15 @@ import java.util.ArrayList;
 
 public class PlayControl {
 
-    private List<Team> teams;
-
-    private List<Player> players;
-
-    private Team winnerTeam;
-
     private Table table;
 
     private Display d;
-
-    private PlayValue playValue;
 
     private Play play;
 
     public PlayControl(Display d, List<Team> teams, int teamSize){
 
-        this.play = new Play(d, teams, teamSize);
+        this.play = new Play(teams, teamSize);
         this.d = d;
         this.table = new Table(teams.size(), teamSize);
 
@@ -72,9 +64,9 @@ public class PlayControl {
 
         if(winnerTeamId != -1){
             this.play.setWinnerTeam(this.play.getTeams().get(winnerTeamId));
-            System.out.println("playValue " + this.play.getPlayValue() + ": " + this.play.getPlayValue().getValue());
-            System.out.println("\nWinner team:  " + String.valueOf(this.play.getWinnerTeam().getId()));
-            this.play.getWinnerTeam().addScore(this.play.getPlayValue().getValue());
+//            System.out.println("playValue " + this.play.getPlayValue() + ": " + this.play.getPlayValue().getValue());
+//            System.out.println("\nWinner team:  " + String.valueOf(this.play.getWinnerTeam().getId()));
+//            this.play.getWinnerTeam().addScore(this.play.getPlayValue().getValue());
         }
 
     }

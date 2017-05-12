@@ -1,14 +1,16 @@
 package model;
 
 import view.Display;
-
+import view.MatchObserver;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Created by math on 5/12/17.
  */
-public class Match {
+public class Match extends Observable{
 
     private int teamSize;
 
@@ -26,6 +28,8 @@ public class Match {
 
     public static final int MAX_SCORE = 12;
 
+    private Observer observer;
+
     public Match(int teamSize, int firstPlayerIndex, Display display, Deck deck) {
         this.teamSize = teamSize;
         this.firstPlayerIndex = firstPlayerIndex;
@@ -34,6 +38,7 @@ public class Match {
         this.teams = new ArrayList<Team>(NUMBER_OF_TEAMS);
         this.display.printString("team size: " + teamSize);
         this.winningTeam = new Team(9999,0);
+        this.observer = MatchObserver.getInstance();
     }
 
     public void addTeam(int index){
@@ -69,10 +74,14 @@ public class Match {
 
     public void setWinningTeam(Team winningTeam) {
         this.winningTeam = winningTeam;
+        this.notifyObservers();
     }
 
     public Deck getDeck() {
         return deck;
     }
 
+    public void notifyObservers(){
+        this.observer.update(this,null);
+    }
 }

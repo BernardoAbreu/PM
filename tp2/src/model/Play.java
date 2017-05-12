@@ -14,14 +14,9 @@ public class Play {
 
     private Team winnerTeam;
 
-    private Table table;
-
-    private Display d;
-
     private PlayValue playValue;
 
-    public Play(Display d, List<Team> teams, int teamSize) {
-        this.d = d;
+    public Play(List<Team> teams, int teamSize) {
         this.teams = teams;
 
         this.players = new ArrayList<Player>(teams.size()*teamSize);
