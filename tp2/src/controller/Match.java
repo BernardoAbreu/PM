@@ -4,11 +4,8 @@ import model.*;
 
 import view.Display;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.ArrayList;
-
-import java.util.SplittableRandom;
 
 /**
  * Created by math on 5/5/17.
@@ -26,103 +23,113 @@ public class Match {
     private Display d;
 
     private Deck deck;
-    private static final int numberOfTeams = 2;
 
-    private static final int maxScore = 12;
+    private static final int NUMBER_OF_TEAMS = 2;
+
+    private static final int MAX_SCORE = 12;
 
     public Match(Display d){
         this.d = d;
-        this.d.printString("IN match, register display observer: ");
 
-        teamSize = this.d.getTeamSize();
+        this.teamSize = this.d.getTeamSize();
 
-        firstPlayerIndex = 0;
+        this.firstPlayerIndex = 0;
 
         this.d.printString("team size: " + teamSize);
-        winningTeam = new Team(9999,0);
+        this.winningTeam = new Team(9999,0);
 
-        teams = new ArrayList<Team>(numberOfTeams);
-
-        // Add Teams
-        for (int i = 0; i < numberOfTeams; i++){
-            teams.add(new Team(i, teamSize));
-        }
-
-
+        this.teams = new ArrayList<Team>(NUMBER_OF_TEAMS);
+        registerTeams();
 
         // Add players to teams
-        int playerId = 0;
-
-        teams.get(0).addPlayer(new RealPlayer(playerId++));
-
-        for (int i = 1; i < teamSize; i++){
-            teams.get(0).addPlayer(new AIPlayer(playerId++));
-        }
-
-        for (int i = 1; i < numberOfTeams; i++){
-            for (int j = 0; j < teamSize; j++){
-                teams.get(i).addPlayer(new AIPlayer(playerId++));
-            }
-        }
+        addPlayersToTeams();
 
         // Set team for each player
-        for(Team team : teams){
-            for(Player player : team.getPlayers()){
-                player.setTeam(team);
-            }
-        }
+        setPlayersTeams();
 
         this.deck = new Deck();
 
     }
 
+    private void setPlayersTeams() {
+        for(Team team : teams){
+            for(Player player : team.getPlayers()){
+                player.setTeam(team);
+            }
+        }
+    }
+
+    private void addPlayersToTeams() {
+        int playerId = 0;
+        //First player of first team will be the RealPlayer
+        this.teams.get(0).addPlayer(new RealPlayer(playerId++));
+
+        //Fill up the first team with AI
+        for (int i = 1; i < this.teamSize; i++){
+            this.teams.get(0).addPlayer(new AIPlayer(playerId++));
+        }
+
+        //The second team will contain only AI players
+        for (int i = 1; i < NUMBER_OF_TEAMS; i++){
+            for (int j = 0; j < this.teamSize; j++){
+                this.teams.get(i).addPlayer(new AIPlayer(playerId++));
+            }
+        }
+    }
+
+    private void registerTeams() {
+        // Add Teams
+        for (int i = 0; i < NUMBER_OF_TEAMS; i++){
+            this.teams.add(new Team(i, this.teamSize));
+        }
+    }
+
 
     public void run(){
 
-        Play play = new Play(d, teams, teamSize);
+        Play play = new Play(this.d, this.teams, this.teamSize);
 
-        while(winningTeam.getScore() < maxScore){
+        while(this.winningTeam.getScore() < MAX_SCORE){
             this.deck.resetDeck();
             this.deck.shuffleDeck();
-            teams.forEach(x-> giveOutCards(x));
+            this.teams.forEach(x-> giveOutCards(x));
 
-            play.run(firstPlayerIndex);
+            play.run(this.firstPlayerIndex);
 
             Team winner = play.getWinnerTeam();
             
             if(winner != null){
-                if(winner.getScore() > winningTeam.getScore()){
-                    winningTeam = winner;
+                if(winner.getScore() > this.winningTeam.getScore()){
+                    this.winningTeam = winner;
                 }
             }
 
-            firstPlayerIndex = (firstPlayerIndex+1)%(teamSize*numberOfTeams);
+            this.firstPlayerIndex = (this.firstPlayerIndex+1)%(this.teamSize* NUMBER_OF_TEAMS);
 
             for(int i = 0; i < teams.size(); i++){
                 d.printString("Team " + i + " - Score: " + teams.get(i).getScore());
             }
             d.printString("");
 
-            for(Team team: teams){
+            for(Team team: this.teams){
                 for(Player player: team.getPlayers()){
                     player.getHand().clearHand();
                 }
             }
         }
 
-        for(int i = 0; i < teams.size(); i++){
-            d.printString("Team " + i + " - Score: " + teams.get(i).getScore());
+        for(int i = 0; i < this.teams.size(); i++){
+            d.printString("Team " + i + " - Score: " + this.teams.get(i).getScore());
             System.out.println("Players: ");
-            for(int j = 0; j < teamSize; j++){
-                System.out.println(teams.get(i).getPlayer(j).getId());
+            for(int j = 0; j < this.teamSize; j++){
+                System.out.println(this.teams.get(i).getPlayer(j).getId());
             }
         }
 
-        d.printString("Winning Score: " + winningTeam.getScore());
+        this.d.printString("Winning Score: " + this.winningTeam.getScore());
     }
 
     private void giveOutCards(Team team){
-        // this.deck.printDeck();
         Card card;
         for(Player player: team.getPlayers()){
             card = this.deck.getFirstCard();
