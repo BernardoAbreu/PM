@@ -10,17 +10,22 @@ public class AIPlayer extends Player{
     }
 
     @Override
-    public void playCard(Table table, Team team) {
+    public void playCard(Table table) {
         System.out.println("Computer choosing");
 
-        table.addCard(this.getHand().removeCard(0),this.getId(), team.getId());
+        table.addCard(this.getHand().removeCard(0),this.getId(), this.getTeam().getId());
 
-        table.printTable();
+        // table.printTable();
 
     }
 
     @Override
     public Option getOption(){
+        return Option.ACCEPT;
+    }
+
+    @Override
+    public Option getOption(boolean b){
         return Option.ACCEPT;
     }
 }

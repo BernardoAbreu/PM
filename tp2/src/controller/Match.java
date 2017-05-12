@@ -43,10 +43,14 @@ public class Match {
 
         teams = new ArrayList<Team>(numberOfTeams);
 
+        // Add Teams
         for (int i = 0; i < numberOfTeams; i++){
             teams.add(new Team(i, teamSize));
         }
 
+
+
+        // Add players to teams
         int playerId = 0;
 
         teams.get(0).addPlayer(new RealPlayer(playerId++));
@@ -61,62 +65,17 @@ public class Match {
             }
         }
 
-
+        // Set team for each player
+        for(Team team : teams){
+            for(Player player : team.getPlayers()){
+                player.setTeam(team);
+            }
+        }
 
         this.deck = new Deck();
-//        deck.printDeck();
-
-//        System.out.println("================= SHUFFLE =====================");
-////        deck.printDeck();
-//        System.out.println("=================== GETFIRST ===================");
-//        Card c = deck.getFirstCard();
-//        System.out.println("c suit:  " + String.valueOf(c.getSuit()) + "  c value: " + String.valueOf(c.getValue()));
-////        deck.printDeck();
-//
-//        Card c2 = deck.getFirstCard();
-//        System.out.println("c2 suit:  " + String.valueOf(c2.getSuit()) + "  c2 value: " + String.valueOf(c2.getValue()));
-//        int result = c.compareTo(c2);
-//        if(result == 0){
-//            System.out.println("igual");
-//        }else if(result == -1){
-//            System.out.println("menor");
-//        }else if(result ==1){
-//            System.out.println("maior");
-//        }else{
-//            System.out.println("ERROR");
-//        }
-
-        // Table table = new Table(numberOfTeams,teamSize);
-
-        // teams.forEach(x-> giveOutCards(x));
-        // for(Team team: teams){
-        //     System.out.println("Printing hand of team:  " + String.valueOf(team.getId()));
-        //     for(Player player: team.getPlayers()){
-        //         player.getHand().printHand();
-        //         System.out.println(player.getHand().getCards());
-        //     }
-        // }
-
-        // for(Team team: teams){
-        //     for(Player player: team.getPlayers()){
-        //         table.addCard(player.getHand().getCards().get(0),player.getId(), team.getId());
-        //     }
-        // }
-        // System.out.println("Printing table:");
-        // table.printTable();
-
-        // System.out.println(table.tie());
-
-        // table.clearTable();
-        // table.printTable();
-
-        // for(Team team: teams){
-        //     for(Player player: team.getPlayers()){
-        //         player.getHand().clearHand();
-        //     }
-        // }
 
     }
+
 
     public void run(){
 
@@ -126,13 +85,6 @@ public class Match {
             this.deck.resetDeck();
             this.deck.shuffleDeck();
             teams.forEach(x-> giveOutCards(x));
-            // for(Team team: teams){
-            //     System.out.println("Printing hand of team:  " + String.valueOf(team.getId()));
-            //     for(Player player: team.getPlayers()){
-            //         // player.getHand().printHand();
-            //         System.out.println("Player "+ player.getId() + ": " + player.getHand().getCards());
-            //     }
-            // }
 
             play.run(firstPlayerIndex);
 

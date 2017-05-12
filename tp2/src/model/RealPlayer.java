@@ -12,11 +12,15 @@ public class RealPlayer extends Player{
     }
 
     @Override
-    public void playCard(Table table, Team team) {
+    public void playCard(Table table) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Choose");
 
-        this.getHand().printHand();
+        // this.getHand().printHand();
+        for(Card c : this.hand){
+            System.out.print(c + " ");
+        }
+        System.out.println();
 
         for(int i = 0; i < this.getHand().getCards().size(); i++){
             System.out.print((i + 1) +  " ");
@@ -24,27 +28,38 @@ public class RealPlayer extends Player{
         System.out.println();
         int opt = sc.nextInt();
         Card c = this.getHand().removeCard(opt-1);
-        table.addCard(c, this.getId(), team.getId());
+        table.addCard(c, this.getId(), this.getTeam().getId());
+    }
+
+    @Override
+    public Option getOption(boolean max){
+        for(Card c : this.hand){
+            System.out.print(c + " ");
+        }
+        System.out.println();
+        
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Player " + this.getId() + " choosing.");
+        System.out.print("1- Accept 2- Fold");
+        System.out.println(((max)?":":" 3- Raise:"));
+
+        int opt = sc.nextInt();
+
+
+        if(opt == 1 ){
+            return Option.ACCEPT;
+        }
+        else if(opt == 2 ){
+            return Option.FOLD;
+        }
+        else if((opt == 3) && !max ){
+            return Option.RAISE;
+        }
+        return Option.ACCEPT;
     }
 
     @Override
     public Option getOption(){
-        System.out.println("Your hand:");
-        this.getHand().printHand();
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("1- Raise 2- Accept 3- Fold:");
-        int opt = sc.nextInt();
-
-        switch (opt){
-            case 1:
-                return Option.RAISE;
-            case 2:
-                return Option.ACCEPT;
-            case 3:
-                return Option.FOLD;
-            default:
-                return Option.FOLD;
-        }
+        return this.getOption(false);
     }
 }

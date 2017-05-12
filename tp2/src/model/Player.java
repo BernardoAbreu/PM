@@ -7,6 +7,7 @@ public abstract class Player {
 
     private int id;
     protected Hand hand;
+    private Team team;
 
     public Hand getHand() {
         return hand;
@@ -21,7 +22,16 @@ public abstract class Player {
         return this.id;
     }
 
-    public abstract Option getOption();
+    public void setTeam(Team t){
+        this.team = t;
+    }
 
-    public abstract void playCard(Table t, Team team);
+    public Team getTeam(){
+        return this.team;
+    }
+
+    public abstract Option getOption();
+    public abstract Option getOption(boolean b);
+
+    public abstract void playCard(Table t);
 }
