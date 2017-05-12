@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Iterator;
+import java.util.Collections;
 
 /**
  * Created by math on 5/7/17.
@@ -31,14 +32,32 @@ public class Hand implements Iterable<Card>{
     //     System.out.println();
     // }
 
-    public List<Card> getCards(){
-        return this.cards;
-    }
+    // public List<Card> getCards(){
+    //     return this.cards;
+    // }
 
     public void clearHand(){
         this.cards.clear();
     }
 
+    public Card removeMaxCard(){
+        Card max;
+        if(this.cards.isEmpty()){
+            throw new java.util.NoSuchElementException();
+        }
+        else{
+            Iterator<Card> iter = this.cards.iterator();
+            max = iter.next();
+
+            while (iter.hasNext()) {
+                Card c = iter.next();
+                if(c.compareTo(max) > 0){
+                    max = c;
+                }
+            }
+        }
+        return max;
+    }
 
     private class HandIterator implements Iterator<Card> {
         private Iterator<Card> iterator;

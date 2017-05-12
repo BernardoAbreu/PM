@@ -22,8 +22,9 @@ public class RealPlayer extends Player{
         }
         System.out.println();
 
-        for(int i = 0; i < this.getHand().getCards().size(); i++){
-            System.out.print((i + 1) +  " ");
+        int i = 0;
+        for(Card c : this.hand){
+            System.out.print((++i) +  " ");
         }
         System.out.println();
         int opt = sc.nextInt();
