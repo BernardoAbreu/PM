@@ -1,7 +1,7 @@
 package model;
 
 import view.Display;
-
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,5 +20,37 @@ public class Play {
 
     private PlayValue playValue;
 
+    public Play(Display d, List<Team> teams, int teamSize) {
+        this.d = d;
+        this.teams = teams;
+
+        this.players = new ArrayList<Player>(teams.size()*teamSize);
+
+        makePlayersList(teams, teamSize);
+    }
+
+    private void makePlayersList(List<Team> teams, int teamSize) {
+        for (int j = 0; j < teamSize; j++){
+            for (int i = 0; i < teams.size(); i++){
+                this.players.add(this.teams.get(i).getPlayer(j));
+            }
+        }
+    }
+
+    public Team getWinnerTeam() { return winnerTeam; }
+
+    public void setWinnerTeam(Team winnerTeam) {
+        this.winnerTeam = winnerTeam;
+    }
+
+    public PlayValue getPlayValue() { return playValue; }
+
+    public void setPlayValue(PlayValue playValue) {
+        this.playValue = playValue;
+    }
+
+    public List<Team> getTeams() { return teams; }
+
+    public List<Player> getPlayers() { return players; }
 
 }

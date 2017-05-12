@@ -20,30 +20,27 @@ public class PlayControl {
 
     private PlayValue playValue;
 
+    private Play play;
+
     public PlayControl(Display d, List<Team> teams, int teamSize){
+
+        this.play = new Play(d, teams, teamSize);
         this.d = d;
-        this.teams = teams;
         this.table = new Table(teams.size(), teamSize);
 
-        this.players = new ArrayList<Player>(teams.size()*teamSize);
-
-        for (int j = 0; j < teamSize; j++){
-            for (int i = 0; i < teams.size(); i++){
-                this.players.add(this.teams.get(i).getPlayer(j));
-            }
-        }
     }
 
 
     public Team getWinnerTeam(){
-        return this.winnerTeam;
+        return this.play.getWinnerTeam();
     }
 
 
     public void run(int firstPlayerIndex){
-        d.printString("Start of PlayControl\n");
+        this.d.printString("Start of PlayControl\n");
 
-        for(Team t : this.teams){
+//        print stuff (Cards)
+        for(Team t : this.play.getTeams()){
             for(Player p : t.getPlayers()){
                 System.out.println("Player " + p.getId() + " team " + t.getId());
                 for(Card c : p.getHand()){
@@ -53,14 +50,14 @@ public class PlayControl {
             }
         }
 
-        this.playValue = PlayValue.NORMAL;
+        this.play.setPlayValue(PlayValue.NORMAL);
 
         FsmPlay chain = new FsmPlay();
 
         chain.setTable(this.table);
-        chain.setPlayValue(this.playValue);
+        chain.setPlayValue(this.play.getPlayValue());
 
-        for(Player p : this.players){
+        for(Player p : this.play.getPlayers()){
             chain.addPlayer(p);
         }
 
@@ -71,13 +68,13 @@ public class PlayControl {
 
         int winnerTeamId = chain.getWinnerTeamId();
 
-        this.playValue = chain.getPlayValue();
+        this.play.setPlayValue(chain.getPlayValue());
 
         if(winnerTeamId != -1){
-            winnerTeam = teams.get(winnerTeamId);
-            System.out.println("playValue " + playValue + ": " + this.playValue.getValue());
-            System.out.println("\nWinner team:  " + String.valueOf(winnerTeam.getId()));
-            winnerTeam.addScore(playValue.getValue());
+            this.play.setWinnerTeam(this.play.getTeams().get(winnerTeamId));
+            System.out.println("playValue " + this.play.getPlayValue() + ": " + this.play.getPlayValue().getValue());
+            System.out.println("\nWinner team:  " + String.valueOf(this.play.getWinnerTeam().getId()));
+            this.play.getWinnerTeam().addScore(this.play.getPlayValue().getValue());
         }
 
     }
