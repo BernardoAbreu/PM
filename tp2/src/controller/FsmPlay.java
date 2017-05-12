@@ -87,6 +87,10 @@ public class FsmPlay {
         return this.playValue;
     }
 
+    List<Player> getPlayers(){
+        return this.players;
+    }
+
     Table getTable(){
         return this.table;
     }
@@ -257,7 +261,15 @@ class FirstRoundTie extends State {
 
         //TODO
         // getMaxCards();
+        for(Player p : wrapper.getPlayers()){
+            Card c = p.getHand().removeMaxCard();
+            table.addCard(c, p.getId(), p.getTeam().getId());
+        }
 
+        for(Card c : table){
+            System.out.println(c + " ");
+        }
+        System.out.println();
         nextState(wrapper);
 
     }
@@ -278,7 +290,15 @@ class SecondRoundTie extends State {
         table.clearTable();
 
         //TODO
-        // getMaxCards();
+        for(Player p : wrapper.getPlayers()){
+            Card c = p.getHand().removeMaxCard();
+            table.addCard(c, p.getId(), p.getTeam().getId());
+        }
+
+        for(Card c : table){
+            System.out.println(c + " ");
+        }
+        System.out.println();
 
         nextState(wrapper);
 
