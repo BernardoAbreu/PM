@@ -1,9 +1,11 @@
 package model;
 
+import java.util.Observable;
+
 /**
  * Created by math on 5/5/17.
  */
-public abstract class Player {
+public abstract class Player extends Observable {
 
     private int id;
     protected Hand hand;

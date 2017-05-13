@@ -10,14 +10,11 @@ public class PlayControl {
 
     private Table table;
 
-    private Display d;
-
     private Play play;
 
-    public PlayControl(Display d, List<Team> teams, int teamSize){
+    public PlayControl(List<Team> teams, int teamSize){
 
         this.play = new Play(teams, teamSize);
-        this.d = d;
         this.table = new Table(teams.size(), teamSize);
 
     }
@@ -29,18 +26,6 @@ public class PlayControl {
 
 
     public void run(int firstPlayerIndex){
-        this.d.printString("Start of PlayControl\n");
-
-//        print stuff (Cards)
-        for(Team t : this.play.getTeams()){
-            for(Player p : t.getPlayers()){
-                System.out.println("Player " + p.getId() + " team " + t.getId());
-                for(Card c : p.getHand()){
-                    System.out.print(c + " ");
-                }
-                System.out.println();
-            }
-        }
 
         this.play.setPlayValue(PlayValue.NORMAL);
 

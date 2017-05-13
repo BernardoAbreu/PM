@@ -157,12 +157,6 @@ public class FsmPlay {
             firstPlayerIndex = (firstPlayerIndex+1) % this.players.size();
             nextPlayer = this.players.get(firstPlayerIndex);
 
-            System.out.print("Table: ");
-            for(java.util.Map.Entry<Integer, Card> e: table){
-                System.out.print(e.getKey() + ":" + e.getValue() + " ");
-            }
-            System.out.println();
-
         }
 
         return null;
