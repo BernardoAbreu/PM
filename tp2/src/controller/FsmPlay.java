@@ -2,8 +2,11 @@ package controller;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 import model.*;
+import view.PlayObserver;
 
 public class FsmPlay {
 
@@ -165,11 +168,13 @@ public class FsmPlay {
 }
 
 
-abstract class State {
+abstract class State extends Observable{
+
+    protected Observer observer;
 
     public void change(FsmPlay wrapper) {
-        printCurrent();
-
+//        printCurrent();
+        notifyObservers();
         Team winnerTeam = wrapper.round(wrapper.getFirstIndex());
                     
         if(winnerTeam != null){
@@ -181,6 +186,8 @@ abstract class State {
     }
 
     public abstract void printCurrent();
+
+    public abstract void notifyObservers();
 
     public void nextState(FsmPlay wrapper){
         Table table = wrapper.getTable();
@@ -205,14 +212,26 @@ abstract class State {
 }
 
 class Initial extends State {
+    public Initial() {
+        this.observer = PlayObserver.getInstance();
+    }
 
+    public void notifyObservers(){
+        super.observer.update(this, "Rodada Inicial");
+    }
     public void printCurrent(){
         System.out.println( "Initial" );
     }
 }
 
 class FirstTeamWonFirst extends State {
+    public FirstTeamWonFirst() {
+        this.observer = PlayObserver.getInstance();
+    }
 
+    public void notifyObservers(){
+        super.observer.update(this, "Primeiro time venceu a primeira rodada.");
+    }
     public void printCurrent(){
         System.out.println( "FirstTeamWonFirst" );
     }
@@ -220,7 +239,13 @@ class FirstTeamWonFirst extends State {
 
 
 class SecondTeamWonFirst extends State {
+    public SecondTeamWonFirst() {
+        this.observer = PlayObserver.getInstance();
+    }
 
+    public void notifyObservers(){
+        super.observer.update(this, "Segundo time venceu a primeira rodada.");
+    }
     public void printCurrent(){
         System.out.println("SecondTeamWonFirst");
     }
@@ -229,7 +254,13 @@ class SecondTeamWonFirst extends State {
 
 
 class PlayTieFirstWinner extends State{
+    public PlayTieFirstWinner() {
+        this.observer = PlayObserver.getInstance();
+    }
 
+    public void notifyObservers(){
+        super.observer.update(this, "Empate na segunda rodada, sendo que o primeiro time venceu a primeira rodada.");
+    }
     public void printCurrent(){
         System.out.println("PlayTieFirstWinner");
     }
@@ -238,7 +269,13 @@ class PlayTieFirstWinner extends State{
 }
 
 class PlayTieSecondWinner extends State{
+    public PlayTieSecondWinner() {
+        this.observer = PlayObserver.getInstance();
+    }
 
+    public void notifyObservers(){
+        super.observer.update(this, "Empate na segunda rodada, sendo que o segundo time venceu a primeira rodada.");
+    }
     public void printCurrent(){
         System.out.println("PlayTieSecondWinner");
     }
@@ -247,7 +284,13 @@ class PlayTieSecondWinner extends State{
 
 
 class FirstRoundTie extends State {
+    public FirstRoundTie() {
+        this.observer = PlayObserver.getInstance();
+    }
 
+    public void notifyObservers(){
+        super.observer.update(this, "Empate na primeira rodada");
+    }
     @Override
     public void change(FsmPlay wrapper) {
         printCurrent();
@@ -271,7 +314,13 @@ class FirstRoundTie extends State {
 }
 
 class SecondRoundTie extends State {
+    public SecondRoundTie() {
+        this.observer = PlayObserver.getInstance();
+    }
 
+    public void notifyObservers(){
+        super.observer.update(this, "Empate na segunda rodada, sendo que ocorreu empate também na primeira.");
+    }
     @Override
     public void change(FsmPlay wrapper) {
         printCurrent();
@@ -297,6 +346,9 @@ class SecondRoundTie extends State {
 
 
 class FirstTeamWon extends State {
+    public void notifyObservers(){
+        super.observer.update(this, "Primeiro time venceu!!");
+    }
     @Override
     public void change(FsmPlay wrapper) {
         System.out.println("FirstTeamWon");
@@ -311,6 +363,9 @@ class FirstTeamWon extends State {
 }
 
 class SecondTeamWon extends State {
+    public void notifyObservers(){
+        super.observer.update(this, "Segundo time venceu!");
+    }
     @Override
     public void change(FsmPlay wrapper) {
         System.out.println("SecondTeamWon");
@@ -325,6 +380,9 @@ class SecondTeamWon extends State {
 }
 
 class NoWinner extends State {
+    public void notifyObservers(){
+        super.observer.update(this, "Não houve vencedou na jogada.");
+    }
     @Override
     public void change(FsmPlay wrapper) {
         System.out.println("NoWinner");
