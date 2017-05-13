@@ -18,10 +18,16 @@ public class Hand implements Iterable<Card>{
     }
 
     public void addCard(Card c){
+        if (c == null){
+            throw new java.lang.NullPointerException("Can't add a null card to a hand.");
+        }
         this.cards.add(c);
     }
 
     public Card removeCard(int index){
+        if (index < 0 || index >= this.cards.size()){
+            throw new java.lang.IllegalArgumentException("Position does not exist in hand: " + index);
+        }
         return this.cards.remove(index);
     }
 
