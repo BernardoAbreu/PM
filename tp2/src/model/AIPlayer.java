@@ -61,8 +61,6 @@ public class AIPlayer extends Player{
         }
         table.addCard(this.getHand().removeCard(removeIndex),this.getId(), this.getTeam().getId());
 
-        // table.printTable();
-
     }
 
     @Override

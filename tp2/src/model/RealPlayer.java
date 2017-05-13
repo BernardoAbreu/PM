@@ -16,7 +16,6 @@ public class RealPlayer extends Player{
         Scanner sc = new Scanner(System.in);
         System.out.println("Choose");
 
-        // this.getHand().printHand();
         for(Card c : this.hand){
             System.out.print(c + " ");
         }

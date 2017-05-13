@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 
-public class Table implements Iterable<Card>{
+public class Table implements Iterable< Map.Entry<Integer, Card>>{
 
     private Map<Integer, Map<Integer, Card> > teamCards;
 
@@ -27,7 +27,7 @@ public class Table implements Iterable<Card>{
 
     }
 
-    
+
     public void addCard(Card card, int playerId, int teamId){
         
         playerCards.put(playerId, card);
@@ -41,7 +41,6 @@ public class Table implements Iterable<Card>{
         }
 
         cards.put(playerId, card);
-        printTable();
     }
 
 
@@ -60,6 +59,7 @@ public class Table implements Iterable<Card>{
         playerCards.clear();
         teamCards.clear();
     }
+
 
     public boolean isEmpty(){
         return this.playerCards.isEmpty();
@@ -106,8 +106,9 @@ public class Table implements Iterable<Card>{
 
 
     public int getWinnerTeamId(){
-        return Collections.max(teamCards.entrySet(), Comparator.comparing(e -> maxCardInTeam(e))).getKey();
+        return Collections.max(this.teamCards.entrySet(), Comparator.comparing(e -> maxCardInTeam(e))).getKey();
     }
+
 
     public Card getMaxCardInTable(){
         if(playerCards.isEmpty()){
@@ -130,22 +131,7 @@ public class Table implements Iterable<Card>{
     }
 
 
-    public void printTable(){
-        System.out.println("Printing table:");
-        System.out.println(playerCards);
-        // System.out.println(teamCards);
-        
-        // Iterator<Map.Entry<Integer, Map<Integer, Card>> > teamIter = teamCards.entrySet().iterator();
-        // while (teamIter.hasNext()) {
-        //     Map.Entry<Integer, Map<Integer, Card>> teamEntry = teamIter.next();
-        //     System.out.println(maxCardInMap(teamEntry.getValue()).getKey());
-        // }
-        // System.out.println("Winning Team: " + getWinnerTeamId());
-        // System.out.println("Winning Player: " + getWinnerPlayerId());
-
-    }
-
-    private class TableIterator implements Iterator<Card> {
+    private class TableIterator implements Iterator<Map.Entry<Integer, Card>> {
         private Iterator< Map.Entry<Integer, Card>> playerIter;
         private Card card;
 
@@ -157,12 +143,12 @@ public class Table implements Iterable<Card>{
             return this.playerIter.hasNext();
         }
 
-        public Card next() {
+        public Map.Entry<Integer, Card> next() {
             if (!hasNext()){
                 throw new java.util.NoSuchElementException();
             }
             
-            return playerIter.next().getValue();
+            return playerIter.next();
         }
 
         public void remove() {
@@ -170,8 +156,9 @@ public class Table implements Iterable<Card>{
         }
     }
 
+
     @Override
-    public Iterator<Card> iterator(){
+    public Iterator<Map.Entry<Integer, Card>> iterator(){
         return new TableIterator(this);
     }
 

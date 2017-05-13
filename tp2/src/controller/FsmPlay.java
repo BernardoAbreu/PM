@@ -158,8 +158,8 @@ public class FsmPlay {
             nextPlayer = this.players.get(firstPlayerIndex);
 
             System.out.print("Table: ");
-            for(Card c: table){
-                System.out.print(c + " ");
+            for(java.util.Map.Entry<Integer, Card> e: table){
+                System.out.print(e.getKey() + ":" + e.getValue() + " ");
             }
             System.out.println();
 
@@ -195,6 +195,8 @@ abstract class State {
         }
         else{
             int winnerTeamId = table.getWinnerTeamId();
+
+            System.out.println("winnerTeamId: " + winnerTeamId);
             wrapper.setFirstIndex(wrapper.getIndexOfPlayer(table.getWinnerPlayerId()));
 
             if(winnerTeamId == wrapper.getTeamId()){
@@ -259,17 +261,11 @@ class FirstRoundTie extends State {
 
         table.clearTable();
 
-        //TODO
-        // getMaxCards();
         for(Player p : wrapper.getPlayers()){
             Card c = p.getHand().removeMaxCard();
             table.addCard(c, p.getId(), p.getTeam().getId());
         }
 
-        for(Card c : table){
-            System.out.println(c + " ");
-        }
-        System.out.println();
         nextState(wrapper);
 
     }
@@ -289,16 +285,10 @@ class SecondRoundTie extends State {
 
         table.clearTable();
 
-        //TODO
         for(Player p : wrapper.getPlayers()){
             Card c = p.getHand().removeMaxCard();
             table.addCard(c, p.getId(), p.getTeam().getId());
         }
-
-        for(Card c : table){
-            System.out.println(c + " ");
-        }
-        System.out.println();
 
         nextState(wrapper);
 
