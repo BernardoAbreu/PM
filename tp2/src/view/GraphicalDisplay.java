@@ -101,7 +101,7 @@ public class GraphicalDisplay extends JPanel implements Display{
         buttonPanel.add(newGame);
 
         setBorder(BorderFactory.createLineBorder( new Color(130,50,40), 3) );
-
+//        this.show();
     }  // end constructor
 
 
@@ -137,7 +137,7 @@ public class GraphicalDisplay extends JPanel implements Display{
             setForeground( Color.BLACK );
             bigFont = new Font("Serif", Font.BOLD, 30);
             smallFont = new Font("Serif", Font.BOLD, 15);
-            setPreferredSize( new Dimension(800+4*(15+79), 800));
+            setPreferredSize( new Dimension(400+4*(15+79), 400));
             drawTable();
             // doNewGame();
         } // end constructor

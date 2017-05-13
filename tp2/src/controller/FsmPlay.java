@@ -259,7 +259,7 @@ class PlayTieFirstWinner extends State{
     }
 
     public void notifyObservers(){
-        super.observer.update(this, "Empate na segunda rodada, sendo que o primeiro time venceu a primeira rodada.");
+        super.observer.update(this, "Segundo time ganhou a segunda rodada. Os times estão empatados na jogada.");
     }
     public void printCurrent(){
         System.out.println("PlayTieFirstWinner");
@@ -274,7 +274,7 @@ class PlayTieSecondWinner extends State{
     }
 
     public void notifyObservers(){
-        super.observer.update(this, "Empate na segunda rodada, sendo que o segundo time venceu a primeira rodada.");
+        super.observer.update(this, "Primeiro time ganhou a segunda rodada. Os times estão empatados na jogada.");
     }
     public void printCurrent(){
         System.out.println("PlayTieSecondWinner");

@@ -1,11 +1,16 @@
 package controller;
 
 import model.*;
+import view.RoundObsever;
+
+import java.util.Observable;
+import java.util.Observer;
 
 
-abstract class RoundState{
+abstract class RoundState extends Observable{
+    protected Observer observer;
     public abstract void choose(FsmRound wrapper);
-
+    public abstract void notifyObservers();
     public boolean inFold(){
         return false;
     }
@@ -99,9 +104,15 @@ public class FsmRound {
 
 
 class RoundInitial extends RoundState {
+    RoundInitial(){
+        this.observer = RoundObsever.getInstance();
+    }
+    public void notifyObservers(){
+        this.observer.update(this,"Rodada inicial.");
+    }
     public void choose(FsmRound wrapper) {
-        System.out.println( "Initial" );
-
+//        System.out.println( "Initial" );
+        this.notifyObservers();
         Option opt = wrapper.getThisPlayer().getOption();
 
         if(opt == Option.RAISE){
@@ -118,6 +129,12 @@ class RoundInitial extends RoundState {
 }
 
 abstract class RaiseState extends RoundState{
+    RaiseState(){
+        this.observer = RoundObsever.getInstance();
+    }
+    public void notifyObservers(String message){
+        this.observer.update(this,message);
+    }
     public void choose(FsmRound wrapper) {
         Option opt = getNextOption(wrapper);
         takeAction(wrapper, opt);
@@ -125,7 +142,7 @@ abstract class RaiseState extends RoundState{
 
     public Option getNextOption(FsmRound wrapper){
         wrapper.setValue(wrapper.getValue().next());
-        System.out.println(wrapper.getThisPlayer().getId() + " gritando " + wrapper.getValue().next());
+        this.notifyObservers(wrapper.getThisPlayer().getId() + " gritando " + wrapper.getValue().next());
         wrapper.swapPlayers();
         return wrapper.getThisPlayer().getOption();
     }
@@ -137,16 +154,24 @@ abstract class RaiseState extends RoundState{
 
 
 class RaiseNormal extends RaiseState {
-    
+    RaiseNormal(){
+        this.observer = RoundObsever.getInstance();
+    }
+    public void notifyObservers(){
+        this.observer.update(this,"ERROR");
+    }
+    public void notifyObservers(String message){
+        this.observer.update(this,message);
+    }
     @Override
     public Option getNextOption(FsmRound wrapper){
-        System.out.println(wrapper.getThisPlayer().getId() + " gritando " + wrapper.getValue().next());
+        this.notifyObservers(wrapper.getThisPlayer().getId() + " gritando " + wrapper.getValue().next());
 
         wrapper.swapPlayers();
 
         return wrapper.getThisPlayer().getOption();
     }
-    
+
     @Override
     public void takeAction(FsmRound wrapper, Option opt){
         if( opt == Option.FOLD){
@@ -165,7 +190,9 @@ class RaiseNormal extends RaiseState {
 
 
 class RaiseTruco extends RaiseState {
-
+    public void notifyObservers(){
+        this.observer.update(this,null);
+    }
     @Override
     public void takeAction(FsmRound wrapper, Option opt){
         if( opt == Option.FOLD){
@@ -182,7 +209,9 @@ class RaiseTruco extends RaiseState {
 }
 
 class RaiseSeis extends RaiseState {
-
+    public void notifyObservers(){
+        this.observer.update(this,null);
+    }
     @Override
     public void takeAction(FsmRound wrapper, Option opt){
         if( opt == Option.FOLD){
@@ -201,7 +230,9 @@ class RaiseSeis extends RaiseState {
 
 
 class RaiseNove extends RaiseState {
-
+    public void notifyObservers(){
+        this.observer.update(this,null);
+    }
     @Override
     public void takeAction(FsmRound wrapper,Option opt){
         if( opt == Option.FOLD){
@@ -217,6 +248,12 @@ class RaiseNove extends RaiseState {
 
 
 class Accept extends RoundState {
+    Accept(){
+        this.observer = RoundObsever.getInstance();
+    }
+    public void notifyObservers(){
+        this.observer.update(this,"Aceitando o valor da jogada.");
+    }
     public void choose(FsmRound wrapper) {
         wrapper.setState(new End());
 
@@ -237,6 +274,12 @@ class AcceptAfterRaise extends Accept {
 }
 
 class Fold extends RoundState {
+    Fold(){
+        this.observer = RoundObsever.getInstance();
+    }
+    public void notifyObservers(){
+        this.observer.update(this,"Jogador desistiu da jogada.");
+    }
     public void choose(FsmRound wrapper) {
         wrapper.setState(new End());
         System.out.println("Player " + wrapper.getThisPlayer().getId() + " Folding");
@@ -245,6 +288,12 @@ class Fold extends RoundState {
 }
 
 class End extends RoundState {
+    End(){
+        this.observer = RoundObsever.getInstance();
+    }
+    public void notifyObservers(){
+        this.observer.update(this,"Jogada terminou.");
+    }
     public void choose(FsmRound wrapper) {
         System.out.println("Ending");
 
