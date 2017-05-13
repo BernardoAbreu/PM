@@ -43,7 +43,6 @@ public class TerminalDisplay implements Display {
                 teamSize = sc.nextInt();
         }
 
-        System.out.println("Numero de jogadores por time: " + teamSize);
     }
 
     public int getTeamSize(){

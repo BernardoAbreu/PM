@@ -61,8 +61,7 @@ public class MatchControl {
 
 
     public void run(){
-        Display disp = TerminalDisplay.getInstance();
-        PlayControl playControl = new PlayControl(disp, this.match.getTeams(), this.match.getTeamSize());
+        PlayControl playControl = new PlayControl(this.match.getTeams(), this.match.getTeamSize());
 
         while(this.match.getWinningTeam().getScore() < Match.MAX_SCORE){
             this.match.getDeck().resetDeck();
@@ -84,15 +83,6 @@ public class MatchControl {
 
             //Clear players hands
             this.match.getTeams().forEach(x-> x.clearPlayersHands());
-        }
-
-        //Print teams and players scores
-        for(int i = 0; i < this.match.getTeams().size(); i++){
-            disp.printString("Team " + i + " - Score: " + this.match.getTeam(i).getScore());
-            System.out.println("Players: ");
-            for(int j = 0; j < this.match.getTeamSize(); j++){
-                System.out.println(this.match.getTeam(i).getPlayer(j).getId());
-            }
         }
     }
 

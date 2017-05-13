@@ -2,9 +2,7 @@ package model;
 
 import view.RealPlayerObserver;
 
-import java.util.Observable;
 import java.util.Observer;
-import java.util.Scanner;
 
 /**
  * Created by math on 5/5/17.

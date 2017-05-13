@@ -15,7 +15,6 @@ public class AIPlayer extends Player{
 
     @Override
     public void playCard(Table table) {
-        System.out.println("Computer choosing");
         int removeIndex = 0;
         if(table.isEmpty()){
             // Play at random
@@ -23,9 +22,7 @@ public class AIPlayer extends Player{
         }
         else{
             Card thisTeamCard = table.getHighestCard(this.getTeam().getId());
-            System.out.println("thisTeamCard: " + thisTeamCard);
             Card maxInTable = table.getMaxCardInTable();
-            System.out.println("maxInTable: " + maxInTable);
             System.out.println();
 
             List<Card> myCards = new ArrayList<Card>();
@@ -60,8 +57,6 @@ public class AIPlayer extends Player{
             }
         }
         table.addCard(this.getHand().removeCard(removeIndex),this.getId(), this.getTeam().getId());
-
-        // table.printTable();
 
     }
 

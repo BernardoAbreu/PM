@@ -35,30 +35,37 @@ public class RealPlayerObserver implements Observer{
             if(o == null){
                 opt = -1;
                 while(opt < 1 || opt > 3){
-                    disp.printString("O que você deseja fazer?");
+                    message = "";
+                    disp.printString("Início da jogada");
                     disp.printString("1- Aceitar o valor da jogada? 2- Desistir da jogada? Ou 3- Aumentar o valor da jogada?:");
-
+                    disp.printString("O que deseja fazer? <1 - 3>");
                     opt = sc.nextInt();
                     if(opt < 1 || opt > 3) disp.printString("O valor escolhido não está entre as opções fornecidas. Por favor, tente novamente.");
                 }
                 player.setPlayValueOption(opt);
 
             }else{
-                disp.printString("As cartas que estão na sua mão são: ");
+                opt = -1;
+                while(opt < 1 || opt > 3){
+                    message = "";
+                    disp.printString("As cartas que estão na sua mão são: ");
 
-                for(Card c : player.getHand()){
-                    message += c + " ";
-                }
-                disp.printString(message);
-                message = "";
-                int i = 0;
-                for(Card c : player.getHand()){
-                    message += String.valueOf(++i) +  "  ";
+                    for(Card c : player.getHand()){
+                        message += c + " ";
+                    }
+                    disp.printString(message);
+                    message = "";
+                    int i = 0;
+                    for(Card c : player.getHand()){
+                        message += String.valueOf(++i) +  "  ";
 
+                    }
+                    disp.printString(message);
+                    disp.printString("");
+                    disp.printString("Qual carta deseja jogar? <1 - 3>");
+                    opt = sc.nextInt();
+                    if(opt < 1 || opt > 3) disp.printString("O valor escolhido não está entre as opções fornecidas. Por favor, tente novamente.");
                 }
-                disp.printString(message);
-                disp.printString("");
-                opt = sc.nextInt();
                 player.setCardOption(opt-1);
             }
         }
