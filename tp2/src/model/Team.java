@@ -12,6 +12,8 @@ public class Team {
     private List<Player> players;
     private int score;
 
+    public static final int HUMAN_PLAYER_TEAM = 0;
+
     public Team(int id, int size){
         this.id = id;
     	this.players = new ArrayList<Player>(size);

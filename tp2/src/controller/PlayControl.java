@@ -29,8 +29,6 @@ public class PlayControl {
 
 
     public void run(int firstPlayerIndex){
-        this.d.printString("Start of PlayControl\n");
-
 //        print stuff (Cards)
         for(Team t : this.play.getTeams()){
             for(Player p : t.getPlayers()){

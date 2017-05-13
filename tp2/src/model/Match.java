@@ -20,8 +20,6 @@ public class Match extends Observable{
 
     private Team winningTeam;
 
-    private Display display;
-
     private Deck deck;
 
     public static final int NUMBER_OF_TEAMS = 2;
@@ -30,13 +28,11 @@ public class Match extends Observable{
 
     private Observer observer;
 
-    public Match(int teamSize, int firstPlayerIndex, Display display, Deck deck) {
+    public Match(int teamSize, int firstPlayerIndex, Deck deck) {
         this.teamSize = teamSize;
         this.firstPlayerIndex = firstPlayerIndex;
-        this.display = display;
         this.deck = deck;
         this.teams = new ArrayList<Team>(NUMBER_OF_TEAMS);
-        this.display.printString("team size: " + teamSize);
         this.winningTeam = new Team(9999,0);
         this.observer = MatchObserver.getInstance();
     }
@@ -53,9 +49,6 @@ public class Match extends Observable{
         return teams;
     }
 
-    public Display getDisplay(){
-        return this.display;
-    }
     public int getTeamSize() {
         return teamSize;
     }

@@ -128,12 +128,6 @@ public class Table extends Observable implements Iterable<Card>{
         }
     }
 
-
-//    public void printTable(){
-//        System.out.println("Printing table:");
-//        System.out.println(playerCards);
-//    }
-
     private class TableIterator implements Iterator<Card> {
         private Iterator< Map.Entry<Integer, Card>> playerIter;
         private Card card;

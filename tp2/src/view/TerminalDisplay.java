@@ -7,6 +7,16 @@ import java.util.Scanner;
  */
 public class TerminalDisplay implements Display {
 
+    private TerminalDisplay(){ }
+
+    private static class TerminalDisplayHolder{
+        private static final TerminalDisplay INSTANCE = new TerminalDisplay();
+    }
+
+    public static TerminalDisplay getInstance(){
+        return TerminalDisplayHolder.INSTANCE;
+    }
+
     private int teamSize;
     @Override
     public void displayInitialScreen(){

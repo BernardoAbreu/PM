@@ -21,7 +21,8 @@ public class TableObserver implements Observer {
     }
     @Override
     public void update(Observable observable, Object o) {
-        System.out.println("Notified table observer!");
+//        System.out.println("Notified table observer!");
+        TerminalDisplay.getInstance().printString("As cartas na mesa são: ");
         Table table = (Table) observable;
         for(Card card : table){
             System.out.println(card);

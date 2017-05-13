@@ -1,6 +1,7 @@
 package view;
 
 import model.Match;
+import model.Team;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -21,8 +22,11 @@ public class MatchObserver implements Observer {
     }
     @Override
     public void update(Observable observable, Object o) {
-        System.out.println("update called on match observer!");
         Match m = (Match) observable;
-        System.out.println("Team: " + String.valueOf(m.getWinningTeam().getId()) + " won with score: " + String.valueOf(m.getWinningTeam().getScore()));
+        if(m.getWinningTeam().getId() == Team.HUMAN_PLAYER_TEAM){
+            TerminalDisplay.getInstance().printString("Parabéns!! Seu time venceu a jogada! :) Sua pontuação é: " + String.valueOf(m.getWinningTeam().getScore()));
+        }else{
+            TerminalDisplay.getInstance().printString("Infelizmente seu time perdeu a jogada.. :(");
+        }
     }
 }
