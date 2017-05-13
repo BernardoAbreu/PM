@@ -3,12 +3,6 @@ package controller;
 import model.*;
 
 import view.Display;
-import view.MatchObserver;
-import view.TerminalDisplay;
-
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
 /**
  * Created by math on 5/5/17.
