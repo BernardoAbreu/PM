@@ -33,7 +33,8 @@ public class PlayObserver implements Observer {
                 TerminalDisplay.getInstance().printString("A pontuação do time: " +  String.valueOf(team.getId()) + " é: " + String.valueOf(team.getScore()));
             }
             TerminalDisplay.getInstance().printString("======================= FIM DA JOGADA ======================= \n\n");
+        }else{
+            TerminalDisplay.getInstance().printString(String.valueOf(o));
         }
-        TerminalDisplay.getInstance().printString(String.valueOf(o));
     }
 }

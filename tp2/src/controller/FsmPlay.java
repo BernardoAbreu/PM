@@ -211,7 +211,7 @@ class Initial extends State {
     }
 
     public void notifyObservers(){
-        super.observer.update(this, "Rodada Inicial");
+        super.observer.update(this, "==================== Rodada Inicial (Início da Jogada) ====================");
     }
 }
 
@@ -221,7 +221,7 @@ class FirstTeamWonFirst extends State {
     }
 
     public void notifyObservers(){
-        super.observer.update(this, "Primeiro time venceu a primeira rodada.");
+        super.observer.update(this, "Parabéns! Seu time venceu a primeira rodada.");
     }
 }
 
@@ -232,7 +232,7 @@ class SecondTeamWonFirst extends State {
     }
 
     public void notifyObservers(){
-        super.observer.update(this, "Segundo time venceu a primeira rodada.");
+        super.observer.update(this, "Infelizmente o time adversário venceu a primeira rodada.");
     }
 
 }
@@ -244,7 +244,7 @@ class PlayTieFirstWinner extends State{
     }
 
     public void notifyObservers(){
-        super.observer.update(this, "Segundo time ganhou a segunda rodada. Os times estão empatados na jogada.");
+        super.observer.update(this, "O time adversário ganhou a segunda rodada. Os times estão empatados na jogada.");
     }
 }
 
@@ -254,7 +254,7 @@ class PlayTieSecondWinner extends State{
     }
 
     public void notifyObservers(){
-        super.observer.update(this, "Primeiro time ganhou a segunda rodada. Os times estão empatados na jogada.");
+        super.observer.update(this, "Seu time ganhou a segunda rodada. Os times estão empatados na jogada.");
     }
 }
 
@@ -313,7 +313,7 @@ class FirstTeamWon extends State {
         this.observer = PlayObserver.getInstance();
     }
     public void notifyObservers(){
-        super.observer.update(this, "Primeiro time venceu!!");
+        super.observer.update(this, "Seu time venceu!!");
     }
     @Override
     public void change(FsmPlay wrapper) {
@@ -329,7 +329,7 @@ class SecondTeamWon extends State {
         this.observer = PlayObserver.getInstance();
     }
     public void notifyObservers(){
-        super.observer.update(this, "Segundo time venceu!");
+        super.observer.update(this, "Time adversário venceu.");
     }
     @Override
     public void change(FsmPlay wrapper) {
@@ -344,7 +344,7 @@ class NoWinner extends State {
         this.observer = PlayObserver.getInstance();
     }
     public void notifyObservers(){
-        super.observer.update(this, "Não houve vencedou na jogada.");
+        super.observer.update(this, "Não houve vencedor na jogada.");
     }
     @Override
     public void change(FsmPlay wrapper) {

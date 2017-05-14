@@ -41,7 +41,7 @@ public class RealPlayerObserver implements Observer{
                         message += c + " ";
                     }
                     disp.printString(message);
-                    disp.printString("Início da jogada");
+                    disp.printString("O que deseja fazer?");
                     disp.printString("1- Aceitar o valor da jogada? 2- Desistir da jogada? Ou 3- Aumentar o valor da jogada?:");
                     disp.printString("O que deseja fazer? <1 - 3>");
                     opt = sc.nextInt();
