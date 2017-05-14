@@ -1,13 +1,16 @@
 package model;
 
-import view.Display;
+import view.PlayObserver;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Created by math on 5/12/17.
  */
-public class Play {
+public class Play extends Observable{
     private List<Team> teams;
 
     private List<Player> players;
@@ -16,10 +19,13 @@ public class Play {
 
     private PlayValue playValue;
 
+    private Observer observer;
+
     public Play(List<Team> teams, int teamSize) {
         this.teams = teams;
 
         this.players = new ArrayList<Player>(teams.size()*teamSize);
+        this.observer = PlayObserver.getInstance();
 
         makePlayersList(teams, teamSize);
     }
@@ -36,6 +42,7 @@ public class Play {
 
     public void setWinnerTeam(Team winnerTeam) {
         this.winnerTeam = winnerTeam;
+        this.notifyObservers();
     }
 
     public PlayValue getPlayValue() { return playValue; }
@@ -47,5 +54,9 @@ public class Play {
     public List<Team> getTeams() { return teams; }
 
     public List<Player> getPlayers() { return players; }
+
+    public void notifyObservers(){
+        this.observer.update(this,"etc");
+    }
 
 }
