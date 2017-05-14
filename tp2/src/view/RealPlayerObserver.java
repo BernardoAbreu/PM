@@ -40,6 +40,7 @@ public class RealPlayerObserver implements Observer{
                     for(Card c : player.getHand()){
                         message += c + " ";
                     }
+                    disp.printString(message);
                     disp.printString("Início da jogada");
                     disp.printString("1- Aceitar o valor da jogada? 2- Desistir da jogada? Ou 3- Aumentar o valor da jogada?:");
                     disp.printString("O que deseja fazer? <1 - 3>");
