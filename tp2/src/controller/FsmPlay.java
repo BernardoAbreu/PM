@@ -40,7 +40,6 @@ public class FsmPlay {
 
     private List<Player> players;
     private int firstIndex;
-    private int currentPlayerIndex;
     private int winner;
 
     private PlayValue playValue;
@@ -185,8 +184,6 @@ abstract class State extends Observable{
         }
     }
 
-    public abstract void printCurrent();
-
     public abstract void notifyObservers();
 
     public void nextState(FsmPlay wrapper){
@@ -196,8 +193,6 @@ abstract class State extends Observable{
         }
         else{
             int winnerTeamId = table.getWinnerTeamId();
-
-            System.out.println("winnerTeamId: " + winnerTeamId);
             wrapper.setFirstIndex(wrapper.getIndexOfPlayer(table.getWinnerPlayerId()));
 
             if(winnerTeamId == wrapper.getTeamId()){
@@ -219,9 +214,6 @@ class Initial extends State {
     public void notifyObservers(){
         super.observer.update(this, "Rodada Inicial");
     }
-    public void printCurrent(){
-        System.out.println( "Initial" );
-    }
 }
 
 class FirstTeamWonFirst extends State {
@@ -231,9 +223,6 @@ class FirstTeamWonFirst extends State {
 
     public void notifyObservers(){
         super.observer.update(this, "Primeiro time venceu a primeira rodada.");
-    }
-    public void printCurrent(){
-        System.out.println( "FirstTeamWonFirst" );
     }
 }
 
@@ -245,9 +234,6 @@ class SecondTeamWonFirst extends State {
 
     public void notifyObservers(){
         super.observer.update(this, "Segundo time venceu a primeira rodada.");
-    }
-    public void printCurrent(){
-        System.out.println("SecondTeamWonFirst");
     }
 
 }
@@ -261,11 +247,6 @@ class PlayTieFirstWinner extends State{
     public void notifyObservers(){
         super.observer.update(this, "Segundo time ganhou a segunda rodada. Os times estão empatados na jogada.");
     }
-    public void printCurrent(){
-        System.out.println("PlayTieFirstWinner");
-    }
-
-
 }
 
 class PlayTieSecondWinner extends State{
@@ -276,10 +257,6 @@ class PlayTieSecondWinner extends State{
     public void notifyObservers(){
         super.observer.update(this, "Primeiro time ganhou a segunda rodada. Os times estão empatados na jogada.");
     }
-    public void printCurrent(){
-        System.out.println("PlayTieSecondWinner");
-    }
-
 }
 
 
@@ -293,7 +270,6 @@ class FirstRoundTie extends State {
     }
     @Override
     public void change(FsmPlay wrapper) {
-        printCurrent();
         Table table = wrapper.getTable();
 
         table.clearTable();
@@ -302,15 +278,8 @@ class FirstRoundTie extends State {
             Card c = p.getHand().removeMaxCard();
             table.addCard(c, p.getId(), p.getTeam().getId());
         }
-
         nextState(wrapper);
-
     }
-
-    public void printCurrent(){
-        System.out.println("FirstRoundTie");
-    }
-
 }
 
 class SecondRoundTie extends State {
@@ -323,7 +292,6 @@ class SecondRoundTie extends State {
     }
     @Override
     public void change(FsmPlay wrapper) {
-        printCurrent();
         Table table = wrapper.getTable();
 
         table.clearTable();
@@ -336,12 +304,6 @@ class SecondRoundTie extends State {
         nextState(wrapper);
 
     }
-
-    public void printCurrent(){
-        System.out.println("SecondRoundTie");
-    }
-
-
 }
 
 
@@ -351,13 +313,8 @@ class FirstTeamWon extends State {
     }
     @Override
     public void change(FsmPlay wrapper) {
-        System.out.println("FirstTeamWon");
         wrapper.setWinner(0);
         wrapper.setEnd();
-    }
-
-    public void printCurrent(){
-        System.out.println("FirstTeamWon");
     }
 
 }
@@ -368,15 +325,9 @@ class SecondTeamWon extends State {
     }
     @Override
     public void change(FsmPlay wrapper) {
-        System.out.println("SecondTeamWon");
         wrapper.setWinner(1);
         wrapper.setEnd();
     }
-
-    public void printCurrent(){
-        System.out.println("SecondTeamWon");
-    }
-
 }
 
 class NoWinner extends State {
@@ -385,13 +336,7 @@ class NoWinner extends State {
     }
     @Override
     public void change(FsmPlay wrapper) {
-        System.out.println("NoWinner");
         wrapper.setNoWinner();
         wrapper.setEnd();
     }
-
-    public void printCurrent(){
-        System.out.println("NoWinner");
-    }
-
 }

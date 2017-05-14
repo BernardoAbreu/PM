@@ -19,7 +19,6 @@ public class PlayObserver implements Observer {
     }
     @Override
     public void update(Observable observable, Object o) {
-//        String[] message = String.valueOf(observable.getClass()).split(" ");
         TerminalDisplay.getInstance().printString(String.valueOf(o));
     }
 }

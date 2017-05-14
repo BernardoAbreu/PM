@@ -22,20 +22,12 @@ public class Card implements Comparable<Card>{
         return suit;
     }
 
-    public void setSuit(Suits suit) {
-        this.suit = suit;
-    }
-
     public char getValue() {
         return value;
     }
 
     public int getTrucoValue() {
         return trucoValue;
-    }
-
-    public void setValue(char value) {
-        this.value = value;
     }
 
     @Override

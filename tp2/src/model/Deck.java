@@ -76,11 +76,6 @@ public class Deck {
         Collections.shuffle(this.cards);
     }
 
-    public void printDeck(){
-        this.cards.forEach(x-> System.out.print(x + " "));
-        System.out.println();
-    }
-
     public void resetDeck(){
         for(Card c : this.givenOutCards){
             this.cards.add(c);
