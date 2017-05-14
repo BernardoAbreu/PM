@@ -48,8 +48,9 @@ public class PlayControl {
         this.play.setPlayValue(chain.getPlayValue());
 
         if(winnerTeamId != -1){
-            this.play.setWinnerTeam(this.play.getTeams().get(winnerTeamId));
-            this.play.getWinnerTeam().addScore(this.play.getPlayValue().getValue());
+            Team winner = this.play.getTeams().get(winnerTeamId);
+            winner.addScore(this.play.getPlayValue().getValue());
+            this.play.setWinnerTeam(winner);
         }
 
     }
