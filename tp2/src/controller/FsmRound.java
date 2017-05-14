@@ -111,8 +111,6 @@ class RoundInitial extends RoundState {
         this.observer.update(this,"Rodada inicial.");
     }
     public void choose(FsmRound wrapper) {
-//        System.out.println( "Initial" );
-        this.notifyObservers();
         Option opt = wrapper.getThisPlayer().getOption();
 
         if(opt == Option.RAISE){

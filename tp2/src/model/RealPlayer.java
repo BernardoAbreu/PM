@@ -21,7 +21,7 @@ public class RealPlayer extends Player{
     @Override
     public void playCard(Table table) {
 
-        notifyObservers((Integer) 1);
+        notifyObservers(1);
         Card c = this.getHand().removeCard(this.getCardOption());
         table.addCard(c, this.getId(), this.getTeam().getId());
     }

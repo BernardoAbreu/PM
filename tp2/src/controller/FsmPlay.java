@@ -172,7 +172,6 @@ abstract class State extends Observable{
     protected Observer observer;
 
     public void change(FsmPlay wrapper) {
-//        printCurrent();
         notifyObservers();
         Team winnerTeam = wrapper.round(wrapper.getFirstIndex());
                     
@@ -270,6 +269,7 @@ class FirstRoundTie extends State {
     }
     @Override
     public void change(FsmPlay wrapper) {
+        this.notifyObservers();
         Table table = wrapper.getTable();
 
         table.clearTable();
@@ -292,6 +292,7 @@ class SecondRoundTie extends State {
     }
     @Override
     public void change(FsmPlay wrapper) {
+        this.notifyObservers();
         Table table = wrapper.getTable();
 
         table.clearTable();
@@ -308,11 +309,15 @@ class SecondRoundTie extends State {
 
 
 class FirstTeamWon extends State {
+    FirstTeamWon(){
+        this.observer = PlayObserver.getInstance();
+    }
     public void notifyObservers(){
         super.observer.update(this, "Primeiro time venceu!!");
     }
     @Override
     public void change(FsmPlay wrapper) {
+        this.notifyObservers();
         wrapper.setWinner(0);
         wrapper.setEnd();
     }
@@ -320,22 +325,30 @@ class FirstTeamWon extends State {
 }
 
 class SecondTeamWon extends State {
+    SecondTeamWon(){
+        this.observer = PlayObserver.getInstance();
+    }
     public void notifyObservers(){
         super.observer.update(this, "Segundo time venceu!");
     }
     @Override
     public void change(FsmPlay wrapper) {
+        this.notifyObservers();
         wrapper.setWinner(1);
         wrapper.setEnd();
     }
 }
 
 class NoWinner extends State {
+    NoWinner(){
+        this.observer = PlayObserver.getInstance();
+    }
     public void notifyObservers(){
         super.observer.update(this, "Não houve vencedou na jogada.");
     }
     @Override
     public void change(FsmPlay wrapper) {
+        this.notifyObservers();
         wrapper.setNoWinner();
         wrapper.setEnd();
     }
