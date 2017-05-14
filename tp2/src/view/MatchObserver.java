@@ -24,9 +24,12 @@ public class MatchObserver implements Observer {
     public void update(Observable observable, Object o) {
         Match m = (Match) observable;
         if(m.getWinningTeam().getId() == Team.HUMAN_PLAYER_TEAM){
-            TerminalDisplay.getInstance().printString("Parabéns!! Seu time venceu a jogada! :) Sua pontuação é: " + String.valueOf(m.getWinningTeam().getScore()));
+            TerminalDisplay.getInstance().printString("Parabéns!! Seu time venceu a jogada! :)" );
         }else{
             TerminalDisplay.getInstance().printString("Infelizmente seu time perdeu a jogada.. :(");
+        }
+        for(Team team: m.getTeams()){
+            TerminalDisplay.getInstance().printString("A pontuação do time: " +  String.valueOf(team.getId()) + " é: " + String.valueOf(team.getScore()));
         }
     }
 }
